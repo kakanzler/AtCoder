@@ -27,7 +27,7 @@ int main(){
         ll n_tmp = 0;
         // 数字を作る。
         rep(i, digit) {
-            if ((1 & (bit >> i) ) == 1) {
+            if (1 & (bit >> i)) {
                 tmp_c += N[i];
             } else {
                 n_tmp += 1;
