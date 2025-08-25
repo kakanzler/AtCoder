@@ -74,7 +74,7 @@ ll solve(ll A, ll N){
 
 
 int main(){
-    int A, N;
+    ll A, N;
     cin >> A >> N;
 
     // solve
