@@ -7,7 +7,7 @@ using namespace std;
 using ll = long long;
 
 
-string get_a_num(int n, int a){
+string get_a_num(ll n, ll a){
     string num = "";
     while(n){
         num.push_back('0' + n % a);
@@ -67,8 +67,8 @@ ll solve(ll A, ll N){
         string an = get_a_num(lpl, A);
         if (!judge_a_num(an)) continue;
         ans += lpl;
-        cout << "pal: " << lpl << endl;
-        cout << "A_num: " << an << endl;
+        // cout << "pal: " << lpl << endl;
+        // cout << "A_num: " << an << endl;
     }
 }
 
