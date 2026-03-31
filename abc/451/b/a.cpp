@@ -160,6 +160,18 @@ void mukou_debug(vvl to, bool yukou) {//GRAPH × GRAPH用の無向グラフを�
 //----------------------------------------------
 
 void solve() {
+    ll N, M; cin >> N >> M;
+    vl zougen(M, 0);
+    rep(i, N) {
+        ll a, b;
+        cin >> a >> b;
+        zougen[a-1]--;
+        zougen[b-1]++;
+     }
+
+     rep (i, M) cout << zougen[i] << '\n';
+
+     return;
 }
 
 int main() {
