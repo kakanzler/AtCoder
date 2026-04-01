@@ -160,6 +160,23 @@ void mukou_debug(vvl to, bool yukou) {//GRAPH × GRAPH用の無向グラフを�
 //----------------------------------------------
 
 void solve() {
+    ll Q;
+    cin >> Q;
+
+    multiset<ll> tree;
+    rep(i, Q) {
+        ll n, m;
+        cin >> n >> m;
+        if (n == 1) {
+            tree.insert(m);
+        } else {
+            auto it = tree.upper_bound(m);
+            tree.erase(tree.begin(), it);
+        }
+        cout << tree.size() << '\n';
+    }
+
+    return;
 }
 
 int main() {
