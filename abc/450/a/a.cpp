@@ -160,6 +160,12 @@ void mukou_debug(vvl to, bool yukou) {//GRAPH × GRAPH用の無向グラフを�
 //----------------------------------------------
 
 void solve() {
+    ll n; cin >> n;
+    rep(i,n) {
+        cout << n - i;
+        if (n-i != 1) cout << ',';
+    }
+    return;
 }
 
 int main() {
