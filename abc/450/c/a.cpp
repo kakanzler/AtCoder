@@ -159,7 +159,45 @@ void mukou_debug(vvl to, bool yukou) {//GRAPH × GRAPH用の無向グラフを�
 
 //----------------------------------------------
 
+void dfs(ll i, ll j, vvl& memo, vvl& c, ll& count, bool& exceed_boundary, bool is_root) {
+    if (i < 0 || i >= ll(size(memo)) || j < 0 || j >= ll(size(memo[0]))) {
+        exceed_boundary = true;
+        return;
+    }
+    if (c[i][j] == '#') return;
+    if (memo[i][j] != -1) return;
+    memo[i][j] = 0;
+    dfs(i + 1, j, memo, c, count, exceed_boundary, false);
+    dfs(i - 1, j, memo, c, count, exceed_boundary, false);
+    dfs(i, j + 1, memo, c, count, exceed_boundary, false);
+    dfs(i, j - 1, memo, c, count, exceed_boundary, false);
+    if (!exceed_boundary && is_root) count++;
+}
+
 void solve() {
+    ll h, w; cin >> h >> w;
+
+    vvl memo(h, vl(w, -1));
+    vvl c(h, vl(w));
+    rep(i, h) {
+        rep(j, w) {
+            char s; cin >> s;
+            c[i][j] = s;
+        }
+    }
+
+    ll count = 0;
+    rep(i, h) {
+        rep(j, w) {
+            if (c[i][j] == '.' && memo[i][j] == -1) {
+                bool exceed_boundary = false;
+                dfs(i, j, memo, c, count, exceed_boundary, true);
+            }
+        }
+    }
+
+    cout << count << endl;
+
 }
 
 int main() {
