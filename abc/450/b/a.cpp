@@ -159,7 +159,46 @@ void mukou_debug(vvl to, bool yukou) {//GRAPH × GRAPH用の無向グラフを�
 
 //----------------------------------------------
 
+ll dfs(ll start, ll end, bool &found, vvl &c) {
+
+    ll thisvalue = c[start-1][end-2];
+
+    if  (start+1 == end) {
+        return thisvalue;
+    }
+
+    rep(i, end-start-1){
+        ll left = dfs(start, start+i+1, found, c);
+        ll right = dfs(start+i+1, end, found, c);
+        if( left + right < thisvalue){
+            found = true;
+        }
+    }
+    return thisvalue;
+}
+
+
 void solve() {
+    ll n; cin >> n;
+    vvl c(n-1, vl(n-1, 0));
+    rep(i, n-1){
+        nfor(j,i,n-1){
+            ll x; cin >> x;
+            c[i][j] = x;
+        }
+    }
+
+    bool found = false;
+    // rep(i, n-1) {
+    //     nfor(j, i, n-1) {
+    //         cout << c[i][j] << ' ';
+    //     }
+    //     cout << endl;
+    // }
+    dfs(1, n, found, c);
+    if(found)YES;
+    else NO;
+    return;
 }
 
 int main() {
