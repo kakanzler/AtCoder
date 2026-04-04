@@ -163,27 +163,18 @@ void solve() {
     ll n, l, r; cin >> n >> l >> r;
     string s; cin >> s;
 
-    map<char, vc<ll>> mp;
+    vvl pos(26);
     rep(i, n) {
-        mp[s[i]].pb(i);
+        pos[s[i] - 'a'].pb(i);
     }
-
-    // debug
-    // rep(i, 26) {
-    //     char c = 'a' + i;
-    //     cout << c << ' ';
-    //     rep(j, (ll)mp[c].size()) {
-    //         cout << mp[c][j] << ' ';
-    //     }
-    //     cout << endl;
-    // }
 
 
     ll ans = 0;
     rep(i, n) {
-        auto L = lower_bound((mp[s[i]].begin()), (mp[s[i]].end()), i + l);
-        auto R = upper_bound((mp[s[i]].begin()), (mp[s[i]].end()), i + r);
-        ans += (ll)(R - L);
+        auto &v = pos[s[i] - 'a'];
+        auto L = lower_bound(v.begin(), v.end(), i + l);
+        auto R = upper_bound(v.begin(), v.end(), i + r);
+        ans += R - L;
     }
 
     cout << ans << endl;
