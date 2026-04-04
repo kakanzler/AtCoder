@@ -162,26 +162,32 @@ void mukou_debug(vvl to, bool yukou) {//GRAPH × GRAPH用の無向グラフを�
 void solve() {
     ll N, K; cin >> N >> K;
 
-    ll a;
-    multiset<ll> A;
+    vl A;
     rep(i, N) {
-        cin >> a;
-        A.insert(a%K);
+        ll a; cin >> a;
+        A.pb(a%K);
     }
 
-    bool ok = true;
-    ll delta = *A.rbegin() - *A.begin();
-    while (ok) {
-        ll minA = *A.begin();
-        A.erase(A.begin());
-        A.insert(minA + K);
+    sort(A.begin(), A.end());
+    A.pb(A[0] + K);
 
-        if (*A.rbegin() - *A.begin() > delta) {
-            ok = false;
-        } else {
-            delta = *A.rbegin() - *A.begin();
+    // debug
+    // rep(i, N+1) cout << A[i] << ' ';
+    // cout << endl;
+
+    ll m = -1, idx = 0;
+    rep(i, N) {
+        ll sub = A[i+1] - A[i];
+        if (sub > m) {
+            m = sub;
+            idx = i;
         }
     }
+
+    // debug
+    // cout << idx << ' ' << A[idx] << endl;
+
+    ll delta = A[idx] + K - A[idx+1];
     cout << delta << endl;
     return;
 }
