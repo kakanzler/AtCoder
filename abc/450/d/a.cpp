@@ -162,33 +162,19 @@ void mukou_debug(vvl to, bool yukou) {//GRAPH × GRAPH用の無向グラフを�
 void solve() {
     ll N, K; cin >> N >> K;
 
-    vl A;
+    vl A(N);
     rep(i, N) {
         ll a; cin >> a;
-        A.pb(a%K);
+        A[i] = a % K;
     }
 
     sort(A.begin(), A.end());
-    A.pb(A[0] + K);
 
-    // debug
-    // rep(i, N+1) cout << A[i] << ' ';
-    // cout << endl;
+    ll max_gap = 0;
+    rep(i, N-1) max_gap = max(max_gap, A[i+1] - A[i]);
+    max_gap = max(max_gap, A[0] + K - A[N-1]);
 
-    ll m = -1, idx = 0;
-    rep(i, N) {
-        ll sub = A[i+1] - A[i];
-        if (sub > m) {
-            m = sub;
-            idx = i;
-        }
-    }
-
-    // debug
-    // cout << idx << ' ' << A[idx] << endl;
-
-    ll delta = A[idx] + K - A[idx+1];
-    cout << delta << endl;
+    cout << K - max_gap << endl;
     return;
 }
 
