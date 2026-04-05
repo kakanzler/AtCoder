@@ -160,6 +160,22 @@ void mukou_debug(vvl to, bool yukou) {//GRAPH × GRAPH用の無向グラフを�
 //----------------------------------------------
 
 void solve() {
+    ll n, m; cin >> n >> m;
+    vector<ll> c(m);
+    rep(i,m) cin >> c[i];
+
+    ll ans = 0;
+    vl koshou(m, 0);
+    ll a, b;
+    rep(i, n){
+        cin >> a >> b;
+        a--;
+        ll kakeru = min(c[a], b);
+        ans += kakeru;
+        c[a] = c[a] - b;
+        c[a] = max(c[a], 0LL);
+    }
+    cout << ans << endl;
     return;
 }
 
