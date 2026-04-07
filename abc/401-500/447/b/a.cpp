@@ -161,21 +161,18 @@ void mukou_debug(vvl to, bool yukou) {//GRAPH × GRAPH用の無向グラフを�
 
 void solve() {
     string S; cin >> S;
-    vector<ll> count(26, 0);
+    vector<ll> cnt(26, 0);
 
-    ll most_freq_n = 0;
-    vector<set<char>> most_freq(S.size()+1);
-    for (char c : S) {
-        ll& ca = count[c - 'a'];
-        ca += 1;
-        most_freq_n = max(most_freq_n, ca);
-        most_freq[ca].insert(c);
-    }
-    for (char c : most_freq[most_freq_n]){
-        S.erase(remove(S.begin(), S.end(), c), S.end());
-    }
+    for (char c : S) cnt[c - 'a']++;
 
-    cout << S << endl;
+    int mx = 0;
+    for (int x : cnt) mx = max(mx, x);
+
+    string ans = "";
+    for (char c: S){
+        if (cnt[c - 'a'] != mx) ans += c;
+    }
+    cout << ans << endl;
 
     return;
 }
