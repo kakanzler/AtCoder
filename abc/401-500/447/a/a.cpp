@@ -160,6 +160,14 @@ void mukou_debug(vvl to, bool yukou) {//GRAPH × GRAPH用の無向グラフを�
 //----------------------------------------------
 
 void solve() {
+    ll n,m; cin >> n >> m;
+
+    int max;
+    if (n < 3) max = 1;
+    else max = (n+1) / 2 ;
+
+    if (max >= m) cout << "Yes\n";
+    else cout << "No\n";
     return;
 }
 
