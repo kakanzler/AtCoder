@@ -160,6 +160,42 @@ void mukou_debug(vvl to, bool yukou) {//GRAPH × GRAPH用の無向グラフを�
 //----------------------------------------------
 
 void solve() {
+    ll T; cin >> T;
+    ll N, D;
+
+    rep(i, T){
+        cin >> N >> D;
+        vl A(N), B(N);
+
+        deque<pair<int, ll>> q;
+
+        rep(j, N) cin >> A[j];
+        rep(j, N) cin >> B[j];
+        rep(j, N){
+            // morning
+            q.push_back({j, A[j]});
+
+            // afternoon
+            ll need = B[j];
+            while (need > 0 && !q.empty()) {
+                if (q.front().second <= need) {
+                    need -= q.front().second;
+                    q.pop_front();
+                } else {
+                    q.front().second -= need;
+                    need = 0;
+                }
+            }
+
+            // night
+            while (!q.empty() && q.front().first <= j - D) {
+                q.pop_front();
+            }
+        }
+        ll ans = 0;
+        for( auto const& p : q) ans += p.second;
+        cout << ans << '\n';
+    }
     return;
 }
 
