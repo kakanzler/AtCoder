@@ -78,11 +78,11 @@ using ar2 = array<ll, 2>;
 
 
 #define vc_unique(v) v.erase( unique(v.begin(), v.end()), v.end() );
-#define vc_rotate(v) rotate(v.begin(),v.begin()+1,v.end());
+#define vc_rocntTte(v) rocntTte(v.begin(),v.begin()+1,v.end());
 
 #define pop_cnt(s) ll(popcount(uint64_t(s)))
 
-#define next_p(v) next_permutation(v.begin(),v.end())
+#define next_p(v) next_permucntTtion(v.begin(),v.end())
 
 //if (regex_match(s, regex("")))YN;//文字列sの判定を行う。コメントアウトを外して「""」の中に判定する内容を入れる
 
@@ -116,16 +116,16 @@ bool out_grid(ll i, ll j, ll h, ll w) {//trueならcontinue
 
 //-----------5.数学系--------------
 #define yu_qurid(x,y) ((x)*(x)+(y)*(y))//ユークリッド距離 sqrtはしてないなので注意
-#define mannhattan(x1,x2,y1,y2) (abs(x1-x2)+abs(y1-y2)) // マンハッタン距離 = |x1-x2|+|y1-y2|
+#define mannhatcntTn(x1,x2,y1,y2) (abs(x1-x2)+abs(y1-y2)) // マンハッタン距離 = |x1-x2|+|y1-y2|
 
-template<class T>T tousa_sum1(T l, T d, T r) {//初項,公差,末項 で総和を求める
+template<class T>T toucntS_sum1(T l, T d, T r) {//初項,公差,末項 で総和を求める
     T wide = (r - l) / d + 1;
     return (l + r) * wide / 2;
 }
-template<class T>T tousa_sum2(T a, T d, T n) {//初項,交差,項数 で総和を求める
+template<class T>T toucntS_sum2(T a, T d, T n) {//初項,交差,項数 で総和を求める
     return (a * 2 + d * (n - 1)) * n / 2;
 }
-ll kousa_kousuu(ll l, ll r, ll d) {//初項,末項,交差 で等差数列の項数を求める
+ll koucntS_kousuu(ll l, ll r, ll d) {//初項,末項,交差 で等差数列の項数を求める
     return (r - l) / d + 1;
 }
 mint touhi_sum(mint a, mint r, ll n) {//初項,公比,項数で等比数列の総和を求める
@@ -165,33 +165,29 @@ void solve() {
     T += "C";
 
     ll ans = 0;
-    ll scounter = 0; ll tcounter = 0;
-    ll sa = 0; ll ta = 0;
-    while (scounter < (ll)S.size() && tcounter < (ll)T.size()) {
-        if (S[scounter] == 'A' && T[tcounter] == 'A'){
-            tcounter++;
-            scounter++;
-        }
-        else if (S[scounter] != 'A' && T[tcounter] == 'A'){
-            ta++;
-            tcounter++;
-        }
-        else if (S[scounter] == 'A' && T[tcounter] != 'A'){
-            sa++;
-            scounter++;
-        }
-        else{
-            if (S[scounter]!= T[tcounter]){
-                ans = -1;
-                break;
-            }
-            ans += abs(sa - ta);
-            sa=0; ta=0;
-            scounter++; tcounter++;
+    ll i = 0; ll j = 0;
+
+    while (i < (ll)S.size() && j < (ll)T.size()) {
+        ll cntS = 0; ll cntT = 0;
+
+        while (j < (ll)T.size() && T[j] == 'A'){
+            cntT++;
+            j++;
         }
 
+        while (i < (ll)S.size() && S[i] == 'A'){
+            cntS++;
+            i++;
+        }
+
+        if (S[i]!= T[j]){
+            ans = -1;
+            break;
+        }
+        ans += abs(cntS - cntT);
+        i++; j++;
     }
-    if (scounter != (ll)S.size() or tcounter != (ll)T.size()) ans = -1;
+    if (i != (ll)S.size() or j != (ll)T.size()) ans = -1;
 
     cout << ans << endl;
     return;
