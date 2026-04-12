@@ -160,13 +160,11 @@ void mukou_debug(vvl to, bool yukou) {//GRAPH × GRAPH用の無向グラフを�
 //----------------------------------------------
 
 void solve() {
-    ll h1, h2;
-    cin >> h1 >> h2;
-    cout << h1 - h2 << endl;
     return;
 }
 
 int main() {
-    ll q = 1;
-    rep(qi, q)solve();
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    solve();
 }
