@@ -163,7 +163,7 @@ void solve() {
     ll n, q; cin >> n >> q;
     ll a;
     vl al(n);
-    vector<tuple<ll, ll>> vt;
+    vector<pair<ll, ll>> vt;
     rep(i, n){
         cin >> a;
         al[i] = a;
@@ -179,18 +179,19 @@ void solve() {
 
     rep(i, q){
         ll k; cin >> k;
-        vl cms = minset;
+        set<ll> banset;
         rep(j, k) {
             ll b; cin >> b;
             b--;
-            rep(ii, (ll)cms.size()){
-                if (b == cms[ii]) {
-                    cms.erase(cms.begin() + ii);
-                    break;
-                }
+            banset.insert(b);
+        }
+
+        for (ll m : minset){
+            if(!banset.count(m)){
+                cout << al[m] << "\n";
+                break;
             }
         }
-        cout << al[cms[0]] << endl;
     }
 
     return;
