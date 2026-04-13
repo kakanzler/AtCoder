@@ -53,7 +53,6 @@ using ar2 = array<ll, 2>;
 
 
 //--------3.コード短縮化とか---------
-#define rep(i,n) for(ll i = 0; i < (n); ++i)
 #define rrep(i,n) for(ll i = 1; i <= (n); ++i)
 #define drep(i,n) for(ll i = (n)-1; i >= 0; --i)
 #define nfor(i,s,n) for(ll i=s;i<n;i++)//i=s,s+1...n-1 ノーマルfor
@@ -160,6 +159,17 @@ void mukou_debug(vvl to, bool yukou) {//GRAPH × GRAPH用の無向グラフを�
 //----------------------------------------------
 
 void solve() {
+    ll n, k, m; cin >> n >> k >> m;
+    ll total = 0;
+
+    rep(i,n-1) {
+        ll a; cin >> a;
+        total += a;
+    }
+    ll score = max(0ll, m * n - total );
+    if (score > k) cout << -1 << endl;
+    else cout << score << endl;
+
     return;
 }
 
