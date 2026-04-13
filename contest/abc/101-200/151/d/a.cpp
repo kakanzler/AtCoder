@@ -160,6 +160,37 @@ void mukou_debug(vvl to, bool yukou) {//GRAPH × GRAPH用の無向グラフを�
 //----------------------------------------------
 
 void solve() {
+    ll h, w; cin >> h >> w;
+    vector<string> grid(h);
+    rep(i, h) cin >> grid[i];
+
+    ll ans = 0;
+    rep(i, h)rep(j, w){
+        if (grid[i][j] == '.'){
+            queue<tuple<ll, ll, ll>> q;
+            q.emplace(i,j, 0);
+            vector<vector<bool>> memo(h, vector<bool>(w, false));
+            memo[i][j] = true;
+            // bfs
+            while(q.size()){
+                auto [x, y, cnt] = q.front(); q.pop();
+
+                rep(v, 4){
+                    ll ni = x + dx[v];
+                    ll nj = y + dy[v];
+                    if ((ni < 0 || ni >= h) || (nj < 0 || nj >= w)) continue;
+                    if (grid[ni][nj] == '#') continue;
+                    if (memo[ni][nj]) continue;
+
+                    q.emplace(ni, nj, cnt+1);
+                    memo[ni][nj] = true;
+                    chmax(ans, cnt+1);
+                }
+            }
+        }
+    }
+
+    cout << ans << endl;
     return;
 }
 
