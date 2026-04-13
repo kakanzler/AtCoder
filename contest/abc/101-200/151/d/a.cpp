@@ -167,24 +167,24 @@ void solve() {
     ll ans = 0;
     rep(i, h)rep(j, w){
         if (grid[i][j] == '.'){
-            queue<tuple<ll, ll, ll>> q;
-            q.emplace(i,j, 0);
-            vector<vector<bool>> memo(h, vector<bool>(w, false));
-            memo[i][j] = true;
+            queue<tuple<ll, ll>> q;
+            q.emplace(i,j);
+            vector<vector<ll>> dist(h, vector<ll>(w, -1));
+            dist[i][j] = 0;
             // bfs
             while(q.size()){
-                auto [x, y, cnt] = q.front(); q.pop();
+                auto [x, y] = q.front(); q.pop();
 
                 rep(v, 4){
-                    ll ni = x + dx[v];
-                    ll nj = y + dy[v];
-                    if ((ni < 0 || ni >= h) || (nj < 0 || nj >= w)) continue;
-                    if (grid[ni][nj] == '#') continue;
-                    if (memo[ni][nj]) continue;
+                    ll nx = x + dx[v];
+                    ll ny = y + dy[v];
+                    if ((nx < 0 || nx >= h) || (ny < 0 || ny >= w)) continue;
+                    if (grid[nx][ny] == '#') continue;
+                    if (dist[nx][ny] != -1) continue;
 
-                    q.emplace(ni, nj, cnt+1);
-                    memo[ni][nj] = true;
-                    chmax(ans, cnt+1);
+                    q.emplace(nx, ny);
+                    dist[nx][ny] = dist[x][y] + 1;
+                    chmax(ans, dist[nx][ny]);
                 }
             }
         }
