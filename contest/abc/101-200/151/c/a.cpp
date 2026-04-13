@@ -160,6 +160,23 @@ void mukou_debug(vvl to, bool yukou) {//GRAPH × GRAPH用の無向グラフを�
 //----------------------------------------------
 
 void solve() {
+    ll n, m; cin >> n >> m;
+    ll ac=0, pena=0;
+    map<ll, bool> mp;
+    map<ll, ll> mpena;
+    rep(i,m){
+        ll q; string judge; cin >> q >> judge;
+        if (judge == "WA" && !mp[q]){
+            if (mpena.contains(q)) mpena[q] += 1;
+            else mpena[q] = 1;
+        }
+        else if (judge == "AC" && !mp[q]){
+            mp[q] = true;
+            ac++;
+            pena += mpena[q];
+        }
+    }
+    cout << ac << ' ' << pena << endl;
     return;
 }
 
