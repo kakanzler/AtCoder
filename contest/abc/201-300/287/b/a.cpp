@@ -18,15 +18,11 @@ void solve() {
     rep(i,n) cin >> s[i];
     rep(i,m) cin >> t[i];
 
+    unordered_set<string> st(t.begin(), t.end());
+
     ll ans = 0;
     rep(i, n){
-        string digit = s[i].substr(3,3);
-        rep(j, m){
-            if (digit == t[j]) {
-                ans++;
-                break;
-            }
-        }
+        if (st.count(s[i].substr(3,3))) ans++;
     }
 
     cout << ans << endl;
