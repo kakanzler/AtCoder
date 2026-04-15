@@ -13,21 +13,16 @@ using ll = long long;
 #define rep(i,n) for(ll i = 0; i < (n); ++i)
 void solve() {
     ll n,m; cin >> n >> m;
-    vector<ll> s(n);
+    vector<string> s(n);
     vector<string> t(m);
     rep(i,n) cin >> s[i];
     rep(i,m) cin >> t[i];
 
     ll ans = 0;
     rep(i, n){
-        ll digit = s[i] % 1000;
-        string sd;
-        if (digit < 10) sd = "00" + to_string(digit);
-        else if (digit < 100) sd = "0" + to_string(digit);
-        else sd = to_string(digit);
+        string digit = s[i].substr(3,3);
         rep(j, m){
-
-            if (sd == t[j]) {
+            if (digit == t[j]) {
                 ans++;
                 break;
             }
