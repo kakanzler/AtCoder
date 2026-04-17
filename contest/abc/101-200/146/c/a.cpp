@@ -17,19 +17,23 @@ using ll = long long;
 
 void solve() {
     ll a,b,x; cin >> a >> b >> x;
-    ll ans = 0;
 
-    rep(dn,10){
+    auto digit = [&](ll n){
+        return (ll)to_string(n).size();
+    };
 
-        ll N = (x - b*(dn+1)) / a;
-        N = min(N, (ll)(pow(10, (dn+1))-1));
-        if (N > 1000000000) {
-            ans = 1000000000;
-            break;
-        }
-        if (pow(10, dn) <= N && N < pow(10,(dn+1))) ans = max(ans, N);
+    auto ok = [&](ll n){
+        return a* n + b * digit(n) <= x;
+    };
+
+    ll l=0, r=1000000001LL; // [l,r)
+    while( r - l > 1){
+        ll center = (r + l) / 2;
+        if (ok(center)) l = center;
+        else r = center;
     }
-    cout << ans << endl;
+
+    cout << l << "\n";
     return;
 }
 
