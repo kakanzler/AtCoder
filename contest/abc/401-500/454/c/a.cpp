@@ -159,7 +159,49 @@ void mukou_debug(vvl to, bool yukou) {//GRAPH × GRAPH用の無向グラフを�
 
 //----------------------------------------------
 
+
+// ll dfs(ll v, ll depth, vvl& g){
+//     item.insert(v);
+//     // cout << "this v: " << v << " depth: " << depth << endl;
+//     ll this_depth = depth;
+//     for (ll nv: g[v]){
+//         // cout << "nv: " <<  nv << endl;
+//         depth = max(depth, dfs(nv, this_depth+1, g));
+//     }
+
+//     return depth;
+// }
+
 void solve() {
+    ll n, m; cin >> n >> m;
+    vvl g(n);
+    rep(i, m){
+        ll a, b; cin >> a >> b; a--; b--;
+        g[a].pb(b);
+    }
+
+    queue<ll> q;
+    vl seen(n, -1);
+    seen[0] = -2;
+    q.push(0);
+
+    while(q.size()){
+        ll v = q.front(); q.pop();
+
+        for (ll nv : g[v]){
+            if (seen[nv] != -1) continue;
+
+            seen[nv] = v;
+            q.push(nv);
+        }
+    }
+
+    ll ans = 0;
+    rep (i,n){
+        // cout << seen[i] << endl;
+        if (seen[i] != -1) ans++;
+    }
+    cout << ans << endl;
     return;
 }
 
