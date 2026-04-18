@@ -160,6 +160,35 @@ void mukou_debug(vvl to, bool yukou) {//GRAPH × GRAPH用の無向グラフを�
 //----------------------------------------------
 
 void solve() {
+    ll n, m; cin >> n >> m;
+    vl cloth(m, 0);
+    // vl man(n, -1);
+    bool q1 = true, q2= true;
+
+    rep(i, n) {
+        ll f;
+        cin >> f; f--;
+        // man[i] = f;
+        cloth[f]++;
+        if (cloth[f] > 1) q1 = false;
+    }
+
+    if (n < m) q2 = false;
+    rep(i, m){
+        if (cloth[i] == 0) {
+            q2 = false;
+            break;
+        }
+    }
+
+    // q1
+    if (q1) YES;
+    else NO;
+
+    // q2
+    if (q2) YES;
+    else NO;
+
     return;
 }
 
