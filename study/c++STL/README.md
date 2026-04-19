@@ -42,7 +42,7 @@
 ### gcd
 
 #### Required Header
-#include <numeric>
+#include \<numeric\>
 
 #### Usage
 ```cpp
@@ -60,7 +60,7 @@ O(log(min(a, b)))
 ### swap
 
 #### Required Header
-#include <algorithm>
+#include \<algorithm\>
 
 #### Usage
 ```cpp
@@ -90,7 +90,7 @@ int x = rand();
 ### clock
 
 #### Required Header
-#include <ctime>
+#include \<ctime\>
 
 #### Usage
 ```cpp
@@ -105,7 +105,7 @@ clock_t t = clock();
 ### string
 
 #### Required Header
-#include <string>
+#include \<string\>
 
 #### Usage
 ```cpp
@@ -117,7 +117,7 @@ string s = "abc";
 ### assert
 
 #### Required Header
-#include <cassert>
+#include \<cassert\>
 
 #### Usage
 ```cpp
@@ -132,7 +132,7 @@ assert(x > 0);
 ### count
 
 #### Required Header
-#include <algorithm>
+#include \<algorithm\>
 
 #### Usage
 ```cpp
@@ -147,7 +147,7 @@ O(n)
 ### find
 
 #### Required Header
-#include <algorithm>
+#include \<algorithm\>
 
 #### Usage
 ```cpp
@@ -162,7 +162,7 @@ O(n)
 ### next_permutation
 
 #### Required Header
-#include <algorithm>
+#include \<algorithm\>
 
 #### Usage
 ```cpp
@@ -193,7 +193,7 @@ O(1)
 ### bitset
 
 #### Required Header
-#include <bitset>
+#include \<bitset\>
 
 #### Usage
 ```cpp
@@ -205,7 +205,7 @@ bitset<8> b(10);
 ### reverse
 
 #### Required Header
-#include <algorithm>
+#include \<algorithm\>
 
 #### Usage
 ```cpp
@@ -220,7 +220,7 @@ O(n)
 ### lower_bound
 
 #### Required Header
-#include <algorithm>
+#include \<algorithm\>
 
 #### Usage
 ```cpp
@@ -239,7 +239,7 @@ O(log n)
 ### upper_bound
 
 #### Required Header
-#include <algorithm>
+#include \<algorithm\>
 
 #### Usage
 ```cpp
@@ -257,7 +257,7 @@ O(log n)
 ### binary_search
 
 #### Required Header
-#include <algorithm>
+#include \<algorithm\>
 
 #### Usage
 ```cpp
@@ -272,7 +272,7 @@ O(log n)
 ### substr
 
 #### Required Header
-#include <string>
+#include \<string\>
 
 #### Usage
 ```cpp
@@ -287,7 +287,7 @@ O(n)
 ### sort
 
 #### Required Header
-#include <algorithm>
+#include \<algorithm\>
 
 #### Usage
 ```cpp
@@ -302,7 +302,7 @@ O(n log n)
 ### abs
 
 #### Required Header
-#include <cmath>
+#include \<cmath\>
 
 #### Usage
 ```cpp
@@ -317,7 +317,7 @@ O(1)
 ### unique
 
 #### Required Header
-#include <algorithm>
+#include \<algorithm\>
 
 #### Usage
 ```cpp
@@ -335,7 +335,7 @@ O(n)
 ### erase
 
 #### Required Header
-#include <vector>
+#include \<vector\>
 
 #### Usage
 ```cpp
@@ -350,7 +350,7 @@ O(n)
 ### queue
 
 #### Required Header
-#include <queue>
+#include \<queue\>
 
 #### Usage
 ```cpp
@@ -367,7 +367,7 @@ O(1)
 ### deque
 
 #### Required Header
-#include <deque>
+#include \<deque\>
 
 #### Usage
 ```cpp
@@ -384,7 +384,7 @@ O(1)
 ### stack
 
 #### Required Header
-#include <stack>
+#include \<stack\>
 
 #### Usage
 ```cpp
@@ -401,7 +401,7 @@ O(1)
 ### priority_queue
 
 #### Required Header
-#include <queue>
+#include \<queue\>
 
 #### Usage
 ```cpp
@@ -419,7 +419,7 @@ push/pop: O(log n)
 ### set
 
 #### Required Header
-#include <set>
+#include \<set\>
 
 #### Usage
 ```cpp
@@ -435,7 +435,7 @@ O(log n)
 ### map
 
 #### Required Header
-#include <map>
+#include \<map\>
 
 #### Usage
 ```cpp
@@ -451,7 +451,7 @@ O(log n)
 ### unordered_set
 
 #### Required Header
-#include <unordered_set>
+#include \<unordered_set\>
 
 #### Usage
 ```cpp
@@ -466,7 +466,7 @@ O(1) average
 ### unordered_map
 
 #### Required Header
-#include <unordered_map>
+#include \<unordered_map\>
 
 #### Usage
 ```cpp
@@ -481,7 +481,7 @@ O(1) average
 ### pair
 
 #### Required Header
-#include <utility>
+#include \<utility\>
 
 #### Usage
 ```cpp
@@ -496,7 +496,7 @@ O(1)
 ### tuple
 
 #### Required Header
-#include <tuple>
+#include \<tuple\>
 
 #### Usage
 ```cpp
