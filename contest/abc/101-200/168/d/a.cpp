@@ -169,36 +169,31 @@ void solve() {
         g[b].pb(a);
     }
 
-    vl ans(n-1, 0);
-    rep(i, n-1){
-        queue<pair<ll, ll>> q;
-        vl dist(n,-1);
-        dist[i+1] = 0;
-        q.emplace(i+1, -10);
+    queue<ll> q;
+    vl dist(n,-1);
 
-        while(!q.empty()){
-            auto [v, michi] = q.front(); q.pop();
-            for (ll nv : g[v]){
-                if (dist[nv] != -1) continue;
-                if (nv == 0) ans[i] = max(1LL, michi);
+    dist[0] = -2;
+    q.emplace(0);
 
-                dist[nv] = dist[v] + 1;
-                if (michi == -10){
-                    q.emplace(nv, nv+1);
-                } else {
-                    q.emplace(nv, michi);
-                }
-            }
+    while(!q.empty()){
+        ll v = q.front(); q.pop();
+        for (ll nv : g[v]){
+            if (dist[nv] != -1) continue;
+
+            dist[nv] = v+1;
+            q.emplace(nv);
         }
+    }
 
-        if (dist[0] == -1) {
+    rep(i, n-1){
+        if (dist[i+1] == -1) {
             NO;
             return;
         }
     }
 
     YES;
-    rep(i, n-1) cout << ans[i] << endl;
+    rep(i, n-1) cout << dist[i+1] << endl;
 
     return;
 }
