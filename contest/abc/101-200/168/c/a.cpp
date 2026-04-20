@@ -158,8 +158,20 @@ void mukou_debug(vvl to, bool yukou) {//GRAPH × GRAPH用の無向グラフを�
 #define vv_cout(v){ll n = size(v);rep(i,n){rep(j,size(v[i])){cout<<v[i][j]<<' ';}cout<<endl;}}//二次元配列を出力する
 
 //----------------------------------------------
+# define PI 3.14159265359
 
 void solve() {
+    double a, b, h, m;
+    cin >> a >> b >> h >> m;
+
+    double at = (h/12.0) * 2*PI + (m/60.0) * (1/6.0)*PI;
+    double bt = (m/60.0) * 2*PI;
+
+    double ax = a * sin(-at), ay = a * cos(-at);
+    double bx = b * sin(-bt), by = b * cos(-bt);
+
+    double ans = sqrt((bx-ax)*(bx-ax) + (by-ay)*(by-ay));
+    cout << std::setprecision(9) << std::scientific << abs(ans) << endl;
     return;
 }
 
