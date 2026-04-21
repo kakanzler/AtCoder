@@ -95,6 +95,17 @@ using ar2 = array<ll, 2>;
 vl dx = { 1,0,-1,0 };//vl dx={1,1,0,-1,-1,-1,0,1};
 vl dy = { 0,1,0,-1 };//vl dy={0,1,1,1,0,-1,-1,-1};
 
+vl wx = {-2,-1, 0, 1, 2,
+         -2,-1,    1, 2,
+         -2,          2,
+         -2,-1,    1, 2,
+         -2,-1, 0, 1, 2 };
+vl wy = { 2, 2, 2, 2, 2,
+          1, 1,    1, 1,
+          0,          0,
+         -1,-1,   -1,-1,
+         -2,-2,-2,-2,-2 };
+
 bool out_grid(ll i, ll j, ll h, ll w) {//trueならcontinue
     return (!(0 <= i && i < h && 0 <= j && j < w));
 }
@@ -111,55 +122,71 @@ bool out_grid(ll i, ll j, ll h, ll w) {//trueならcontinue
 
 //--------------------------------
 
-
-
-
-//-----------5.数学系--------------
-#define yu_qurid(x,y) ((x)*(x)+(y)*(y))//ユークリッド距離 sqrtはしてないなので注意
-#define mannhattan(x1,x2,y1,y2) (abs(x1-x2)+abs(y1-y2)) // マンハッタン距離 = |x1-x2|+|y1-y2|
-
-template<class T>T tousa_sum1(T l, T d, T r) {//初項,公差,末項 で総和を求める
-    T wide = (r - l) / d + 1;
-    return (l + r) * wide / 2;
-}
-template<class T>T tousa_sum2(T a, T d, T n) {//初項,交差,項数 で総和を求める
-    return (a * 2 + d * (n - 1)) * n / 2;
-}
-ll kousa_kousuu(ll l, ll r, ll d) {//初項,末項,交差 で等差数列の項数を求める
-    return (r - l) / d + 1;
-}
-mint touhi_sum(mint a, mint r, ll n) {//初項,公比,項数で等比数列の総和を求める
-    if (r == 1) {
-        return a * n;
+void debug(vvl& dist, ll& h, ll& w){
+    // debug
+    rep (i, h) {
+        rep(j, w) cout << dist[i][j] << " ";
+        cout << endl;
     }
-    mint bunsi = a * (r.pow(n) - mint(1));
-    mint bunbo = r - 1;
-    return bunsi / bunbo;
+    cout << "---" << endl;
 }
 
-ll nc2(ll x) { return x * (x - 1) / 2; }
-ll nc3(ll x) { return x * (x - 1) * (x - 2) / 6; }
-
-//----------------------------------------------
-
-
-
-
-//-----------6.デバックや出力系------------------
-void print(ld x) { printf("%.20Lf\n", x); }
-
-void mukou_debug(vvl to, bool yukou) {//GRAPH × GRAPH用の無向グラフを出力する
-    ll n = size(to); ll cnt = 0;//辺の本数
-    vc<pair<ll, ll>>v; rep(i, n)for (ll t : to[i])  if (i < t || yukou)cnt++, v.eb(i + 1, t + 1);//有向グラフなら全部OK、違うなら無向なのでf<tのみ見る、using Pのやつを別のにしたいときのためにPを使わずにpair<ll,ll>にしてる
-    cout << n << ' ' << cnt << endl; for (auto [f, t] : v)cout << f << ' ' << t << endl;
-}
-
-#define vc_cout(v){ll n = size(v);rep(i,n)cout<<v[i]<<endl;}//一次元配列を出力する
-#define vv_cout(v){ll n = size(v);rep(i,n){rep(j,size(v[i])){cout<<v[i][j]<<' ';}cout<<endl;}}//二次元配列を出力する
-
-//----------------------------------------------
 
 void solve() {
+    ll h, w; cin >> h >> w;
+    ll ch, cw; cin >> ch >> cw; ch--; cw--;
+    ll dh, dw; cin >> dh >> dw; dh--; dw--;
+    vector<string> g(h);
+    rep(i, h) cin >> g[i];
+
+    // y, x, jump_count, 直前が#だったかどうか。
+    queue<tuple<ll, ll>> q;
+    q.emplace(ch, cw);
+    queue<tuple<ll, ll>> wq;
+    vvl dist(h, vector<ll>(w, -1));
+    vector<vector<bool>> warped(h, vector<bool>(w, false));
+    dist[ch][cw] = 0;
+
+    while(!q.empty()){
+        auto [y, x] = q.front(); q.pop();
+
+        // 歩く
+        rep(i, 4){
+            ll ny = y + dy[i];
+            ll nx = x + dx[i];
+
+            if (out_grid(ny, nx, h, w)) continue;
+            if (g[ny][nx] == '#') {
+                if (!warped[ny][nx]){
+                    wq.emplace(y, x);
+                    warped[ny][nx] = true;
+                }
+                continue;
+            }
+            if (dist[ny][nx] != -1) continue;
+
+            q.emplace(ny, nx);
+            dist[ny][nx] = dist[y][x];
+        }
+
+        // 何もできない状況で、まだ到達していないならwarpを試みる。
+        while(q.empty() && !wq.empty()) {
+            auto [yy, xx] = wq.front(); wq.pop();
+            rep(i, 20){
+                ll nyy = yy + wy[i];
+                ll nxx = xx + wx[i];
+
+
+                if (out_grid(nyy, nxx, h, w)) continue;
+                if (g[nyy][nxx] == '#') continue;
+                if (dist[nyy][nxx] != -1) continue;
+
+                q.emplace(nyy, nxx);
+                dist[nyy][nxx] = dist[yy][xx] + 1;
+            }
+        }
+    }
+    cout << dist[dh][dw] << endl;
     return;
 }
 
