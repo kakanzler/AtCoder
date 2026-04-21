@@ -140,15 +140,13 @@ void solve() {
     rep(i, h) cin >> g[i];
 
     // y, x, jump_count, 直前が#だったかどうか。
-    queue<tuple<ll, ll>> q;
-    q.emplace(ch, cw);
-    queue<tuple<ll, ll>> wq;
-    vvl dist(h, vector<ll>(w, -1));
-    // vector<vector<bool>> warped(h, vector<bool>(w, false));
+    deque<tuple<ll, ll>> q;
+    q.emplace_front(ch, cw);
+    vvl dist(h, vector<ll>(w, INF));
     dist[ch][cw] = 0;
 
     while(!q.empty()){
-        auto [y, x] = q.front(); q.pop();
+        auto [y, x] = q.front(); q.pop_front();
 
         // 歩く
         rep(i, 4){
@@ -156,37 +154,25 @@ void solve() {
             ll nx = x + dx[i];
 
             if (out_grid(ny, nx, h, w)) continue;
-            if (g[ny][nx] == '#') {
-                // if (!warped[ny][nx]){
-                    wq.emplace(y, x);
-                    // warped[ny][nx] = true;
-                // }
-                continue;
-            }
-            if (dist[ny][nx] != -1) continue;
+            if (g[ny][nx] == '#') continue;
+            if (dist[ny][nx] <= dist[y][x]) continue;
 
-            q.emplace(ny, nx);
+            q.emplace_front(ny, nx);
             dist[ny][nx] = dist[y][x];
         }
 
-        // 何もできない状況で、まだ到達していないならwarpを試みる。
-        while(q.empty() && !wq.empty()) {
-            auto [yy, xx] = wq.front(); wq.pop();
-            rep(i, 20){
-                ll nyy = yy + wy[i];
-                ll nxx = xx + wx[i];
+        rep(i, 20){
+            ll warped_y = y + wy[i];
+            ll warped_x = x + wx[i];
+            if (out_grid(warped_y, warped_x, h, w)) continue;
+            if (g[warped_y][warped_x] == '#') continue;
+            if (dist[warped_y][warped_x] <= dist[y][x] + 1) continue;
 
-
-                if (out_grid(nyy, nxx, h, w)) continue;
-                if (g[nyy][nxx] == '#') continue;
-                if (dist[nyy][nxx] != -1) continue;
-
-                q.emplace(nyy, nxx);
-                dist[nyy][nxx] = dist[yy][xx] + 1;
-            }
+            q.emplace_back(warped_y, warped_x);
+            dist[warped_y][warped_x] = dist[y][x] + 1;
         }
     }
-    cout << dist[dh][dw] << endl;
+    cout << (dist[dh][dw] == INF ? -1 : dist[dh][dw]) << endl;
     return;
 }
 
