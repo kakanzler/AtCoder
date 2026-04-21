@@ -144,7 +144,7 @@ void solve() {
     q.emplace(ch, cw);
     queue<tuple<ll, ll>> wq;
     vvl dist(h, vector<ll>(w, -1));
-    vector<vector<bool>> warped(h, vector<bool>(w, false));
+    // vector<vector<bool>> warped(h, vector<bool>(w, false));
     dist[ch][cw] = 0;
 
     while(!q.empty()){
@@ -157,10 +157,10 @@ void solve() {
 
             if (out_grid(ny, nx, h, w)) continue;
             if (g[ny][nx] == '#') {
-                if (!warped[ny][nx]){
+                // if (!warped[ny][nx]){
                     wq.emplace(y, x);
-                    warped[ny][nx] = true;
-                }
+                    // warped[ny][nx] = true;
+                // }
                 continue;
             }
             if (dist[ny][nx] != -1) continue;
