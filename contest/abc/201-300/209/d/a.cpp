@@ -159,12 +159,62 @@ void mukou_debug(vvl to, bool yukou) {//GRAPH × GRAPH用の無向グラフを�
 
 //----------------------------------------------
 
-void solve() {
+void solve(vvl& g, ll& n) {
+
+    queue<ll> cq;
+    queue<ll> dq;
+    vl distc(n, -1);
+    vl distd(n, -1);
+
+    ll c, d; cin >> c >> d;
+    c--; d--;
+
+    cq.emplace(c);
+    dq.emplace(d);
+    distc[c] = 0;
+    distd[d] = 0;
+
+    auto bfs = [&](queue<ll> &q, vl &dist, ll &start){
+        dist[start] = 0;
+        q.push(start);
+
+        while(q.size()){
+            ll v = q.front(); q.pop();
+            for (ll nv : g[v]){
+                if (dist[nv] != -1) continue;
+
+                q.push(nv);
+                dist[nv] = dist[v]+1;
+            }
+        }
+    };
+
+    bfs(cq, distc, c);
+    bfs(dq, distd, d);
+
+    string ans = "Road";
+    rep(i, n){
+        // cout << distc[i] << " : " << distd[i] << endl;
+        if (distc[i] == distd[i]) ans = "Town";
+    }
+    cout << ans << endl;
     return;
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    solve();
+
+    ll n, q; cin >> n >> q;
+    vvl g(n);
+    rep(i, n-1){
+        ll a,b; cin >> a >> b;
+        a--; b--;
+        g[a].pb(b);
+        g[b].pb(a);
+    }
+
+    rep(i, q){
+        solve(g, n);
+    }
 }
