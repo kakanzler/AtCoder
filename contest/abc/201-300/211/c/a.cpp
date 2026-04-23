@@ -19,43 +19,31 @@ using vl = vc<ll>; using vvl = vv<ll>; using vvvl = vv<vl>; using vvvvl = vv<vvl
 
 //--------3.コード短縮化とか---------
 #define rep(i,n) for(ll i = 0; i < (n); ++i)
+#define drep(i,n) for(ll i = (n)-1; i >= 0; --i)
 
 //----------------------------------------------
 const ll m = 1000000007;
 
 void solve() {
     string s; cin >> s;
-    ll n = s.size();
 
-    vvl dp(9, vl(n+1, 0));
+    vl dp(9, 0);
     string cho = "chokudai";
 
-    dp[0][0] = 1;
+    dp[0] = 1;
 
-    rep(i, n) {
-        dp[0][i + 1] = 1;  // 空文字列は常に1通り
-    }
-
-    rep(i, 8){
-        rep(j, n){
-            dp[i+1][j+1] = dp[i+1][j];
-            if (cho[i] == s[j]) dp[i+1][j+1] += dp[i][j];
-            dp[i+1][j+1] %= m;
+    for (char c: s){
+        drep(i, 8) {
+            if (cho[i] == c) {
+                dp[i+1] += dp[i];
+                dp[i+1] %= m;
+            }
+            // cout << dp[i] << ' ';
         }
+        // cout << endl;
     }
 
-    // // debug
-    // rep(i, 8){
-    //     cout << cho[i] << endl;
-    //     rep(j, n){
-    //         // cout << s[j] << ' ';
-    //         // cout << (cho[i] == s[j]) << ' ';
-    //         cout << dp[i+1][j+1] << ' ';
-    //     }
-    //     cout << endl;
-    // }
-
-    cout << dp[8][n] << endl;
+    cout << dp[8] << endl;
     return;
 }
 
