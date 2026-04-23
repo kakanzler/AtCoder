@@ -30,17 +30,21 @@ void solve() {
     vvl dp(9, vl(n+1, 0));
     string cho = "chokudai";
 
+    dp[0][0] = 1;
+
+    rep(i, n) {
+        dp[0][i + 1] = 1;  // 空文字列は常に1通り
+    }
+
     rep(i, 8){
         rep(j, n){
-            if(cho[i] == s[j] && (!i || dp[i][j])) {
-                dp[i+1][j+1] = max(dp[i+1][j] + dp[i][j], dp[i+1][j] + 1LL);
-            }
-            else dp[i+1][j+1] = dp[i+1][j];
+            dp[i+1][j+1] = dp[i+1][j];
+            if (cho[i] == s[j]) dp[i+1][j+1] += dp[i][j];
             dp[i+1][j+1] %= m;
         }
     }
 
-    //debug
+    // // debug
     // rep(i, 8){
     //     cout << cho[i] << endl;
     //     rep(j, n){
@@ -51,7 +55,7 @@ void solve() {
     //     cout << endl;
     // }
 
-    cout << dp[8][n] % m << endl;
+    cout << dp[8][n] << endl;
     return;
 }
 
