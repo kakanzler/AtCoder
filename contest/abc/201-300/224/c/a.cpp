@@ -13,7 +13,6 @@ template<typename T> using vv = vc<vc<T>>;
 
 //-------------1.型系---------------
 using ll = long long;
-double INF = 2e18;
 
 //-------------2.配列系--------------
 using vl = vc<ll>;
@@ -23,20 +22,21 @@ using vl = vc<ll>;
 
 void solve() {
     ll n; cin >> n;
-    vector<double> x(n), y(n);
+    vector<ll> x(n), y(n);
     rep(i, n){
-        double xx, yy;
+        ll xx, yy;
         cin >> xx >> yy;
         x[i] = xx;
         y[i] = yy;
     }
 
     auto isTri = [&](ll i, ll j, ll k){
-        double a = INF, b = INF;
+        ll x1 = x[j] - x[i];
+        ll x2 = x[k] - x[i];
+        ll y1 = y[j] - y[i];
+        ll y2 = y[k] - y[i];
 
-        if (x[i] != x[j]) a = (y[i] - y[j]) / (x[i] - x[j]);
-        if (x[k] != x[j]) b = (y[k] - y[j]) / (x[k] - x[j]);
-        return (a != b);
+        return x1 * y2 - y1 * x2 != 0;
     };
 
     ll ans = 0;
