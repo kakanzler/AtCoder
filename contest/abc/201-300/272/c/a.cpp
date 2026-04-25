@@ -160,6 +160,34 @@ void mukou_debug(vvl to, bool yukou) {//GRAPH × GRAPH用の無向グラフを�
 //----------------------------------------------
 
 void solve() {
+    ll n; cin >> n;
+    vl va(n);
+    vl idx_even, idx_odd, even, odd;
+    rep(i, n) {
+        cin >> va[i];
+        if (va[i] % 2) {
+            odd.pb(va[i]);
+        } else {
+            even.pb(va[i]);
+        }
+    }
+
+    if (odd.size() <= 1 && even.size() <= 1) {
+        cout << -1 << endl;
+        return;
+    }
+
+    auto get_max = [&](vl list){
+        if ((ll)list.size() <= 1) return 0LL;
+
+        sort(list.begin(), list.end());
+        ll a = list.back();
+        list.pop_back();
+        ll b = list.back();
+        return a + b;
+    };
+
+    cout << max(get_max(odd), get_max(even)) << endl;
     return;
 }
 
