@@ -36,26 +36,27 @@ void solve() {
     vvl dist(n, vector<ll>(n, -1));
     dist[0][0] = 0;
 
-    vl dx, dy;
+    set<pair<ll, ll>> d;
     rep(i, n){
         rep(j, n){
             if (i*i + j*j == m){
-                dx.pb(i); dy.pb(j);
-                dx.pb(-i); dy.pb(j);
-                dx.pb(i); dy.pb(-j);
-                dx.pb(-i); dy.pb(-j);
+                d.insert({i, j});
+                d.insert({-i, j});
+                d.insert({i, -j});
+                d.insert({-i, -j});
             }
         }
     }
 
+    vector<pair<ll, ll>> move(d.begin(), d.end());
     while(q.size()){
         auto [x, y] = q.front(); q.pop();
-        rep(i, (ll)dx.size()){
-            ll nx = x + dx[i];
-            ll ny = y + dy[i];
+        rep(i, (ll)move.size()){
+
+            ll nx = x + move[i].first;
+            ll ny = y + move[i].second;
 
             if (out_grid(nx, ny, n, n)) continue;
-            if ( (nx-x)*(nx-x) + (ny-y)*(ny-y) != m) continue;
             if (dist[nx][ny] != -1) continue;
 
             q.emplace(nx, ny);
