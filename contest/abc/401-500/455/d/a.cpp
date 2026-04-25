@@ -159,7 +159,41 @@ void mukou_debug(vvl to, bool yukou) {//GRAPH × GRAPH用の無向グラフを�
 
 //----------------------------------------------
 
+
 void solve() {
+    ll n, q; cin >> n >> q;
+    vector<stack<ll>> stack_deck(n);
+    rep(i, n) stack_deck[i].push(i);
+
+    vl card_loc(n);
+    rep(i, n) card_loc[i] = i;
+
+    stack<ll> tmp_stack;
+    rep(i, q){
+        ll from, to; cin >> from >> to;
+        from--; to--;
+
+        // 取り出し作業
+        while (true){
+            ll tmp_value = stack_deck[card_loc[from]].top();
+            tmp_stack.push(tmp_value);
+            stack_deck[card_loc[from]].pop();
+            card_loc[tmp_value] = card_loc[to];
+            if (tmp_value == from) break;
+        }
+
+        // 乗せ換え
+        while(tmp_stack.size()){
+            stack_deck[card_loc[to]].push(tmp_stack.top()); tmp_stack.pop();
+        }
+
+        // debug
+        // rep(i, n) cout << stack_deck[i].size() << ' ';
+        // cout << endl;
+    }
+
+    rep(i, n) cout << stack_deck[i].size() << ' ';
+    cout << endl;
     return;
 }
 
