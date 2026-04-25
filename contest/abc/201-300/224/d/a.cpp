@@ -15,7 +15,7 @@ using ll = long long;
 
 
 //-------------2.配列系--------------
-using vl = vc<ll>; using vvl = vv<ll>; 
+using vl = vc<ll>; using vvl = vv<ll>;
 
 
 //--------3.コード短縮化とか---------
@@ -33,53 +33,50 @@ void solve() {
     }
 
     vl state(9, -1);
-    ll empty = 36;
     rep(i, 8) {
         ll p; cin >> p; p--;
-        empty -= p;
         state[p] = i;
     }
 
-    queue<tuple<ll, ll, vl>> q;
-    q.emplace(empty, 0, state);
-
-    auto get_strstate = [&] (vl lis){
+    auto get_strstate = [&] (const vl& lis){
         string pos = "";
         rep(i, 9) {
             if (lis[i] == -1) pos += 'e';
             else {
-                pos += (char)lis[i] + '0';
+                pos += char(lis[i] + '0');
             }
         }
         return pos;
     };
-    string pos = get_strstate(state);
 
-    auto swap_state = [&] (vl lis, ll i, ll j){
-        vl ss = lis;
+    auto swap_state = [&] (string ss, ll i, ll j){
         swap(ss[i], ss[j]);
         return ss;
     };
 
-    set<string> dist;
-    dist.insert(pos);
+    string pos = get_strstate(state);
+
+    queue<string> q;
+    q.emplace(pos);
+
+    map<string, ll> dist;
+    dist.insert({pos, 0});
 
     while(q.size()){
-        auto [v, count, state] = q.front(); q.pop();
-        string pos = get_strstate(state);
+        string pos = q.front(); q.pop();
+        ll v = pos.find('e');
 
         if (pos == "01234567e") {
-            cout << count << endl;
+            cout << dist[pos] << endl;
             return;
         }
         for (ll nv : g[v]){
-            vl nstate = swap_state(state, v, nv);
-            string npos = get_strstate(nstate);
+            string npos = swap_state(pos, v, nv);
             if(dist.contains(npos)) continue;
 
             // cout << pos << " -> " << npos << endl;
-            q.emplace(nv, count+1, nstate);
-            dist.insert(npos);
+            q.emplace(npos);
+            dist.insert({npos, dist[pos] + 1});
 
         }
         // cout << "---" << endl;
