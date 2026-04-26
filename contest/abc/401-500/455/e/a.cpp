@@ -160,6 +160,30 @@ void mukou_debug(vvl to, bool yukou) {//GRAPH × GRAPH用の無向グラフを�
 //----------------------------------------------
 
 void solve() {
+    ll n; cin >> n;
+    string s; cin >> s;
+
+    auto cumulative_sum = [&](vector<ll> co) {
+        ll res = 0, x = 0;
+        map<ll, ll> d;
+        rep(i, n) {
+            d[x]++;
+            x += co[s[i] - 'A'];
+            res += d[x];
+            // cout << x << ' ' <<  d[-1] << ' ' <<  d[0] << ' ' <<  d[1] << ' ' << res << endl;
+        }
+        // cout << "---" << endl;
+        return res;
+    };
+
+    ll ans = n*(n+1LL) / 2;
+    //                     A   B  C
+    ans -= cumulative_sum({1, -1,  0});
+    ans -= cumulative_sum({1,  0, -1});
+    ans -= cumulative_sum({0,  1, -1});
+    const ll B = 1e6;
+    ans += cumulative_sum({B+1, -B, -1}) * 2;
+    cout << ans << endl;
     return;
 }
 
