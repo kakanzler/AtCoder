@@ -159,7 +159,76 @@ void mukou_debug(vvl to, bool yukou) {//GRAPH × GRAPH用の無向グラフを�
 
 //----------------------------------------------
 
+ll stoll_x10000(string s){
+    string res = "";
+
+    ll count = 4; bool start=false;
+    for (char c: s){
+        if (c == '.') {
+            start = true;
+            continue;
+        }
+        res += c;
+        if (start) count--;
+
+        if (start && count == 0) break;
+    }
+    rep(i, count) res += "0";
+    return stoll(res);
+}
+
+
+ll floor_div(ll a, ll m){
+    if ( a >= 0 ) return a / m;
+    return -(( - a + m - 1) / m);
+}
+
+ll ceil_div(ll a, ll m){
+    if ( a >= 0 ) return ( a + m - 1 ) / m;
+    return a / m;
+}
+
+bool inside(ll X, ll Y, ll cx, ll cy, ll r){
+    return (X - cx) * (X - cx) + (Y - cy)*(Y - cy) <= r * r;
+}
+
 void solve() {
+    string sx, sy, sr;
+    cin >> sx >> sy >> sr;
+
+    ll cx = stoll_x10000(sx);
+    ll cy = stoll_x10000(sy);
+    ll radius  = stoll_x10000(sr);
+
+    const ll M = 10000;
+    ll count = 0;
+
+    ll min_y = ceil_div(cy - radius, M);
+    ll max_y = floor_div(cy + radius, M);
+
+    for (ll y = min_y; y <= max_y; y++){
+        ll Y = y * M;
+        ll dy = Y - cy;
+
+        ll D = radius * radius - dy * dy;
+        if (D < 0) continue;
+
+        ll ok = 0, ng = radius + 1;
+
+        while ( ng - ok > 1){
+            ll mid = (ok + ng) / 2;
+            if (mid * mid <= D) ok = mid;
+            else ng = mid;
+        }
+        ll dx = ok;
+
+        ll l = ceil_div(cx-dx, M);
+        ll r = floor_div(cx+dx, M);
+
+        count += r - l + 1;
+    }
+
+    cout << count << endl;
     return;
 }
 
