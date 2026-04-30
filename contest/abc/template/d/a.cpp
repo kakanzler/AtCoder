@@ -62,8 +62,22 @@ using ar2 = array<ll, 2>;
 #define nall(a) a.begin(),a.end()
 #define rall(a) a.rbegin(),a.rend()
 
-#define chmax(x,y) x = max(x,y)
-#define chmin(x,y) x = min(x,y)
+template<class T> bool chmin (T &a, T b){
+    if (a > b) {
+        a = b;
+        return true;
+    } else {
+        return false;
+    }
+}
+template<class T> bool chmax (T &a, T b){
+    if (a < b) {
+        a = b;
+        return true;
+    } else {
+        return false;
+    }
+}
 
 #define pb push_back
 #define eb emplace_back
