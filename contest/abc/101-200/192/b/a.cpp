@@ -34,6 +34,13 @@ using vs = vc<string>; using vvs = vv<string>;
 //----------------------------------------------
 
 void solve() {
+    string s; cin >> s;
+    bool unread = true;
+    rep(i, (ll)s.size()){
+        if ((i+1)%2 == 0 && islower(s[i])) unread = false;
+        if ((i+1)%2 == 1 && isupper(s[i])) unread = false;
+    }
+    cout << (unread ? "Yes" : "No") << endl;
     return;
 }
 

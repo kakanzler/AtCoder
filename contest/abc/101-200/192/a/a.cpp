@@ -34,6 +34,8 @@ using vs = vc<string>; using vvs = vv<string>;
 //----------------------------------------------
 
 void solve() {
+    ll x; cin >> x;
+    cout << 100 - x % 100 << endl;
     return;
 }
 
