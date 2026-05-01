@@ -173,29 +173,48 @@ void mukou_debug(vvl to, bool yukou) {//GRAPH × GRAPH用の無向グラフを�
 
 //----------------------------------------------
 
+bool check(string x, ll base, ll m){
+    __int128 val = 0;
+
+    for (char c : x){
+        int d = c - '0';
+        val = val * base + d;
+
+        if (val > m) return false;
+    }
+    return true;
+}
+
 void solve() {
     string x; ll m; cin >> x >> m;
+
+    if (x.size() == 1){
+        if (stoll(x) <= m) cout << 1 << endl;
+        else cout << 0 << endl;
+        return;
+    }
+
     ll digit = 0;
     for (char c : x){
         chmax(digit, (ll)(c - '0'));
     }
-    digit++;
-    reverse(x.begin(), x.end());
 
-    set<ll> s;
-    while(true){
-        ll ans = 0;
-        int iter = 0;
-        for (char c : x){
-            ans +=  (ll)(c - '0') * pow(digit, iter);
-            iter++;
+    ll ans = 0;
+
+    ll left = digit + 1;
+    ll right = 1e18 + 1;
+    while (left <= right) {
+        ll mid = (left + right) / 2;
+
+        if (check(x, mid, m)){
+            ans = mid;
+            left = mid + 1;
+        } else {
+            right = mid - 1;
         }
-        cout << ans << endl;
-        if (ans > m) break;
-        s.insert(ans);
-        digit++;
     }
-    cout << s.size() << endl;
+
+    cout << max(0LL, ans - digit) << endl;
     return;
 }
 
