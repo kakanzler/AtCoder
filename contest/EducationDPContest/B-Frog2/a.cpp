@@ -164,13 +164,13 @@ void solve() {
     vl h(n);
     rep(i, n) cin >> h[i];
 
-    vvl dp(n, vector<ll>(n+1 , INF));
-    dp[0][0] = 0;
+    vl dp(n, INF);
+    dp[0] = 0;
     rep(i, n-1){
         rep(j, k) {
             ll next = j + i + 1;
             if (next >= n) break;
-            dp[i+1][next] = min(dp[i][next] , dp[i][i] + abs(h[next] - h[i]) );
+            dp[next] = min(dp[next] , dp[i] + abs(h[next] - h[i]) );
         }
     }
     // debug
@@ -178,7 +178,7 @@ void solve() {
     //     rep(j, n+1) cout << dp[i][j] << ' ';
     //     cout << endl;
     // }
-    cout << dp[n-1][n-1] << endl;
+    cout << dp[n-1] << endl;
     return;
 }
 
