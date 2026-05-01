@@ -70,8 +70,9 @@ void solve() {
 
         if (d > dist[v]) continue;
 
-        for (Edge e : g[v]){
-            if (chmin(dist[e.to], dist[v] + e.w + (dist[v] % e.k  == 0 ? 0 : e.k - dist[v] % e.k ))) {
+        for (const Edge e : g[v]){
+            ll wait = (e.k - dist[v] % e.k) % e.k;
+            if (chmin(dist[e.to], dist[v] + e.w + wait)) {
                 q.emplace(dist[e.to], e.to);
                 // debug
                 // rep(i, n) cout << dist[i] << ' ';
