@@ -160,25 +160,29 @@ void mukou_debug(vvl to, bool yukou) {//GRAPH × GRAPH用の無向グラフを�
 //----------------------------------------------
 
 void solve() {
-    ll n, k; cin >> n >> k;
-    vl h(n);
-    rep(i, n) cin >> h[i];
+    ll n; cin >> n;
+    vector<vector<ll>> g(n, vector<ll>(3, INF));
+    rep(i, n){
+        rep(j, 3) cin >> g[i][j];
+    }
 
-    vl dp(n, INF);
-    dp[0] = 0;
-    rep(i, n-1){
-        rep(j, k) {
-            ll next = j + i + 1;
-            if (next >= n) break;
-            dp[next] = min(dp[next] , dp[i] + abs(h[next] - h[i]) );
+    vvl dp(n+1, vl(3, INF));
+    rep(i, 3) dp[0][i] = 0;
+    rep(i, n){
+        rep(j, 3){
+            dp[i+1][j] = max(dp[i][(j+1)%3] + g[i][(j+1)%3], dp[i][(j+2)%3] + g[i][(j+2) %3]);
         }
     }
+
     // debug
-    // rep(i, n) {
-    //     rep(j, n+1) cout << dp[i][j] << ' ';
+    // rep(i, n+1) {
+    //     rep(j, 3) cout << dp[i][j] << ' ';
     //     cout << endl;
     // }
-    cout << dp[n-1] << endl;
+
+    ll ans = 0;
+    rep(i, 3) chmax (ans, dp[n][i]);
+    cout << ans << endl;
     return;
 }
 
