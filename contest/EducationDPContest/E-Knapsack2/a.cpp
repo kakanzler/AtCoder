@@ -62,8 +62,18 @@ using ar2 = array<ll, 2>;
 #define nall(a) a.begin(),a.end()
 #define rall(a) a.rbegin(),a.rend()
 
-#define chmax(x,y) x = max(x,y)
-#define chmin(x,y) x = min(x,y)
+template<class T> bool chmax(T& x,  T y){
+    if (x < y){
+        x = y;
+        return true;
+    } else return false;
+};
+template<class T> bool chmin(T& x,  T y){
+    if (x > y){
+        x = y;
+        return true;
+    } else return false;
+};
 
 #define pb push_back
 #define eb emplace_back
@@ -161,28 +171,39 @@ void mukou_debug(vvl to, bool yukou) {//GRAPH × GRAPH用の無向グラフを�
 
 void solve() {
     ll N, W; cin >> N >> W;
-    vl w(N, INF), v(N, INF);
+    vl w(N), v(N);
     rep(i, N){
         cin >> w[i] >> v[i];
     }
 
-    vvl dp(N+1, vl(W+1, 0));
+    ll MAXV = 0;
+    rep(i, N) MAXV += v[i];
+
+    vl dp(MAXV+1, INF);
+
+    dp[0] = 0;
+
     rep(i, N){
-        rep(j, W+1){
-            if (j - w[i] < 0) dp[i+1][j] = dp[i][j];
-            else dp[i+1][j] = max(dp[i][j], dp[i][j - w[i]] + v[i]);
+        for (ll j = MAXV; j >= v[i] ; --j){
+
+            if (dp[j - v[i]] + w[i] <= W){
+                chmin(dp[j], dp[j - v[i]] + w[i]);
+            }
+
         }
+
+        // degug
+        // rep(j, MAXV){
+        //     cout << dp[j] << ' ';
+        // }
+        // cout << endl;
     }
 
-    // debug
-    // rep(i, N+1){
-    //     rep(j, W+1){
-    //         cout << dp[i][j] << ' ';
-    //     }
-    //     cout << endl;
-    // }
-
-    cout << dp[N][W] << endl;
+    ll ans = 0;
+    rep(j, MAXV+1){
+        if (dp[j] <= W) ans = j;
+    }
+    cout << ans << endl;
     return;
 }
 
