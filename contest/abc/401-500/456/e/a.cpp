@@ -173,12 +173,59 @@ void mukou_debug(vvl to, bool yukou) {//GRAPH × GRAPH用の無向グラフを�
 
 //----------------------------------------------
 
+
 void solve() {
+    ll n, m; cin >> n >> m;
+    vvl g(n);
+    rep(i, n){
+        g[i].pb(i);
+    }
+    rep(i, m){
+        ll u, v; cin >> u >> v;
+        u--; v--;
+        g[u].pb(v);
+        g[v].pb(u);
+    }
+
+    ll w; cin >> w;
+    vs s(n);
+    rep(i, n) cin >> s[i];
+
+    queue<tuple<ll, ll, ll>> q;
+    vl cand;
+    rep(i,n) {
+        // find start
+        if (s[i][0] == 'o') {
+            cand.push_back(i);
+            q.emplace(i, 0, i);
+        }
+    }
+
+    while(q.size()){
+        auto [v, day, start] = q.front(); q.pop();
+        for (ll nv : g[v]){
+
+            if (s[nv][(day+1) % w ] == 'x') continue;
+
+            q.emplace(nv, day+1, start );
+            if ((day+1)%w == 0 && nv == start) {
+                // cout << path+char('1'+  nv) << endl;
+                YES;
+                return;
+            }
+        }
+    }
+    NO;
+
     return;
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    solve();
+
+    ll t; cin >> t;
+    rep(i, t){
+        solve();
+    }
 }
