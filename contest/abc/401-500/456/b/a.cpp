@@ -34,6 +34,18 @@ using vs = vc<string>; using vvs = vv<string>;
 //----------------------------------------------
 
 void solve() {
+    vvl dice(3, vl(6));
+    rep(i,3) rep(j, 6) cin >> dice[i][j];
+
+    double ans = 0;
+    ll count = 0;
+    rep(i, 6) rep(j, 6) rep(k, 6){
+        if (dice[0][i] * dice[1][j] * dice[2][k] == 4*5*6 ) {
+            count++;
+        }
+    }
+    ans = count / 216.0;
+    cout << fixed << setprecision(7) << ans << endl;
     return;
 }
 

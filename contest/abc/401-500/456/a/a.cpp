@@ -34,6 +34,14 @@ using vs = vc<string>; using vvs = vv<string>;
 //----------------------------------------------
 
 void solve() {
+    ll x; cin >> x;
+    rep(i, 6) rep(j, 6) rep(k, 6){
+        if (i + j + k + 3 == x) {
+            YES;
+            return;
+        }
+    }
+    NO;
     return;
 }
 

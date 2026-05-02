@@ -18,7 +18,9 @@ ll INF = 2e18;
 #include <boost/multiprecision/cpp_int.hpp>//インストール的なのをしてないとできないので注意
 namespace multip = boost::multiprecision;
 //using lll = multip::cpp_int;//無制限を使いたいときはこっちを使う
+
 using lll = multip::int128_t;
+
 
 using ld = long double;
 using bl = bool;
@@ -173,7 +175,29 @@ void mukou_debug(vvl to, bool yukou) {//GRAPH × GRAPH用の無向グラフを�
 
 //----------------------------------------------
 
+
 void solve() {
+    string s; cin >> s;
+    vs v;
+    string portion = string(1, s[0]);
+    rep (i, (ll)s.size() - 1){
+        if (s[i] != s[i+1]) portion += s[i+1];
+        else{
+            v.pb(portion);
+            portion = s[i+1];
+        }
+    }
+    v.pb(portion);
+
+    ll ans = 0;
+
+    rep(i, (ll)v.size()){
+        // cout << v[i] << ' ';
+        ans += (ll)v[i].size() * ((ll)v[i].size() + 1LL) / 2;
+    }
+    // cout << endl;
+
+    cout << ans % 998244353 << endl;
     return;
 }
 
