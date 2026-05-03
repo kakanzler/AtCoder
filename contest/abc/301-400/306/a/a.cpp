@@ -34,6 +34,14 @@ using vs = vc<string>; using vvs = vv<string>;
 //----------------------------------------------
 
 void solve() {
+    ll n; cin >> n;
+    string s; cin >> s;
+
+    string ans = "";
+    rep(i, 2*n) {
+        ans += s[i/2];
+    }
+    cout << ans << endl;
     return;
 }
 
