@@ -34,6 +34,17 @@ using vs = vc<string>; using vvs = vv<string>;
 //----------------------------------------------
 
 void solve() {
+    ll n; cin >> n;
+    ll ans = 0;
+    vl a(n);
+    rep(i, n) cin >> a[i];
+
+    sort(a.begin(), a.end());
+    for (ll i : a){
+        if (i == ans) ans++;
+    }
+    cout << ans << endl;
+
     return;
 }
 

@@ -34,6 +34,10 @@ using vs = vc<string>; using vvs = vv<string>;
 //----------------------------------------------
 
 void solve() {
+    ll a, b, c, d; cin >> a >> b >> c >> d;
+
+    if ( a * 60 + b < c * 60 + d + 1) cout << "Takahashi" << endl;
+    else cout << "Aoki" << endl;
     return;
 }
 
