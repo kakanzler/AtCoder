@@ -13,6 +13,7 @@ template<typename T> using vv = vc<vc<T>>;
 
 //-------------1.型系---------------
 using ll = long long;
+using ull = unsigned long long;
 ll INF = 2e18;
 
 using mint = modint998244353;
