@@ -35,14 +35,11 @@ using vs = vc<string>; using vvs = vv<string>;
 using ull = unsigned long long;
 void solve() {
     ull ans = 0;
-    vector<ull> va(64);
 
     rep(i, 64) {
-        cin >> va[i];
-    }
-    reverse(va.begin(), va.end());
-    for (ull a : va){
-        ans = ans * 2 + a;
+        ull a; cin >> a;
+
+        ans += a << i;
     }
     cout << ans << endl;
 
