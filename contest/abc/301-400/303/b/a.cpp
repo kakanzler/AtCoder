@@ -22,6 +22,7 @@ using mint = modint998244353;
 
 //-------------2.配列系--------------
 using vl = vc<ll>; using vvl = vv<ll>; using vvvl = vv<vl>; using vvvvl = vv<vvl>;
+using vb = vc<bool>; using vvb = vv<bool>;
 using vs = vc<string>; using vvs = vv<string>;
 
 
@@ -34,6 +35,29 @@ using vs = vc<string>; using vvs = vv<string>;
 //----------------------------------------------
 
 void solve() {
+    ll n,m; cin >> n >> m;
+    vvl v(m, vl(n, 0));
+    rep(i, m) rep(j, n) {
+        ll a; cin >> a;
+        a--;
+        v[i][j] = a;
+    }
+    vvb g(n, vb(n, false));
+    rep(i, m) rep(j, n-1) {
+        g[v[i][j]][v[i][j+1]] = true;
+        g[v[i][j+1]][v[i][j]] = true;
+    }
+
+    ll ans = 0;
+    rep(i, n) {
+        for (ll j = i+1 ; j < n ; j++ ) {
+            // cout << g[i][j] << ' ';
+            if (!g[i][j]) ans++;
+        }
+        // cout << endl;
+    }
+
+    cout << ans << endl;
     return;
 }
 
