@@ -41,34 +41,21 @@ template<class T> bool chmax (T &a, T b){
 }
 
 #define pb push_back
+using mint = atcoder::modint998244353;
 
 void solve() {
     string s; cin >> s;
-    ll n = (ll)s.size();
-    vector<vector<ll>> dp(n+1, vector<ll>(3, 0));
+    map<char, mint> dp;
 
-    rep (i, n) {
-
-        dp[i+1][(s[i] - 'a') % 3] = dp[i][(s[i] - 'a') % 3];
-
-        dp[i+1][(s[i] - 'a') % 3] += dp[i][(s[i] - 'a' + 1) % 3] + dp[i][ (s[i] - 'a' + 2 ) % 3] + 1;
-        dp[i+1][(s[i] - 'a') % 3] %= 998244353;
-
-        dp[i+1][(s[i] - 'a' + 1) % 3] = dp[i][(s[i] - 'a' + 1) % 3];
-        dp[i+1][(s[i] - 'a' + 2) % 3] = dp[i][(s[i] - 'a' + 2) % 3];
-
+    for (char c : s) {
+        dp[c] = dp['a'] + dp['b'] + dp['c'] + 1;
     }
 
-    // debug
-    // rep (i, n+1) {
-    //     rep(j, 3){
-    //         cout << dp[i][j] << ' ';
-    //     }
-    //     cout << endl;
-    // }
-
-    ll ans = ((dp[n][0] + dp[n][1] ) % 998244353 + dp[n][2]) % 998244353;
-    cout << ans << endl;
+    mint ans = 0;
+    for (auto [k, v] : dp){
+        ans += v;
+    }
+    cout << ans.val() << endl;
     return;
 }
 
