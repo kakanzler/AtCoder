@@ -32,9 +32,26 @@ using vs = vc<string>; using vvs = vv<string>;
 #define YES cout<<"Yes"<<endl
 #define NO cout<<"No"<<endl
 
+
+template<class T> bool chmax(T& a, T b){
+    if (a < b){
+        a = b;
+        return true;
+    }else return false;
+};
 //----------------------------------------------
 
 void solve() {
+    ll n; string s; cin >> n >> s;
+
+    ll mx = 0, x=0;
+    for (char c : s){
+        if (c == 'D') x--;
+        else x++;
+
+        chmax(mx, x);
+    }
+    cout << mx << endl;
     return;
 }
 
