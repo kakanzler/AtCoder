@@ -31,9 +31,29 @@ using vs = vc<string>; using vvs = vv<string>;
 #define YES cout<<"Yes"<<endl
 #define NO cout<<"No"<<endl
 
+vvl vvl_tenti(vvl& a, ll h, ll w) {
+    vvl b(w, vl(h, 0));
+
+    rep(i, h) rep(j, w) {
+        b[j][i] = a[i][j];
+    }
+
+    return b;
+}
 //----------------------------------------------
 
 void solve() {
+    ll h, w;
+    cin >> h >> w;
+    vvl a(h , vl(w, 0));
+    rep(i, h) rep(j, w) cin >> a[i][j];
+
+   vvl b = vvl_tenti(a, h, w);
+
+    rep(i, w) {
+        rep(j, h) cout << b[i][j] << ' ';
+        cout << endl;
+    }
     return;
 }
 
