@@ -8,33 +8,16 @@ using namespace std;
 using namespace atcoder;
 
 
-template<typename T> using vc = vector<T>;//prioriy_queueに必要なのでここにこれ書いてます
-template<typename T> using vv = vc<vc<T>>;
-
-//-------------1.型系---------------
-using ll = long long;
-using ull = unsigned long long;
-ll INF = 2e18;
-
-using mint = modint998244353;
-//using mint = modint1000000007;
-//using mint = modint;//使うときはコメントアウトを外す
-//mint::set_mod(m);//使うときはコメントアウトを外す
-
-//-------------2.配列系--------------
-using vl = vc<ll>; using vvl = vv<ll>; using vvvl = vv<vl>; using vvvvl = vv<vvl>;
-using vs = vc<string>; using vvs = vv<string>;
-
-
-//--------3.コード短縮化とか---------
-#define rep(i,n) for(ll i = 0; i < (n); ++i)
-
-#define YES cout<<"Yes"<<endl
-#define NO cout<<"No"<<endl
-
-//----------------------------------------------
 
 void solve() {
+    string s; cin >> s;
+    map<string , int> m;
+    m["Monday"] = 5;
+    m["Tuesday"] = 4;
+    m["Wednesday"] = 3;
+    m["Thursday"] = 2;
+    m["Friday"] = 1;
+    cout << m[s] << endl;
     return;
 }
 
