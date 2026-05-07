@@ -31,7 +31,8 @@ using vs = vc<string>; using vvs = vv<string>;
 
 #define YES cout<<"Yes"<<endl
 #define NO cout<<"No"<<endl
-
+#define YN {cout<<"Yes"<<endl;}else{cout<<"No"<<endl;}// if(a==b)YN;
+#define dame cout<<-1<<endl
 //----------------------------------------------
 
 void solve() {
