@@ -28,13 +28,47 @@ using vs = vc<string>; using vvs = vv<string>;
 
 //--------3.コード短縮化とか---------
 #define rep(i,n) for(ll i = 0; i < (n); ++i)
-
+#define nfor(i,s,n) for(ll i=s;i<n;i++)//i=s,s+1...n-1 ノーマルfor
 #define YES cout<<"Yes"<<endl
 #define NO cout<<"No"<<endl
-
+#define YN {cout<<"Yes"<<endl;}else{cout<<"No"<<endl;}// if(a==b)YN;
+#define dame cout<<-1<<endl
 //----------------------------------------------
 
 void solve() {
+    string s; cin >> s;
+    bool is_split = false;
+
+    vector<bool> lane(7, true);
+
+    if (s[0]-'0') {
+        NO;
+        return;
+    }
+    if (s[6]-'0') lane[0] = false;
+    if (s[3]-'0') lane[1] = false;
+    if (s[1]-'0' || s[7]-'0') lane[2] = false;
+    if (s[0]-'0' || s[4]-'0') lane[3] = false;
+    if (s[2]-'0' || s[8]-'0') lane[4] = false;
+    if (s[5]-'0') lane[5] = false;
+    if (s[9]-'0') lane[6] = false;
+
+    // rep(i, 10) cout << i << " : " <<  s[i]-'0' << ' ';
+    // cout << endl;
+
+    // rep(i, 7) cout << lane[i] << ' ';
+    // cout << endl;
+
+    rep(i, 5) {
+        nfor(j, i+1, 7){
+            nfor (k, i+1, j){
+                if ((!lane[i] && !lane[j]) && lane[k]){
+                    is_split = true;
+                }
+            }
+        }
+    }
+    if (is_split) YN;
     return;
 }
 
