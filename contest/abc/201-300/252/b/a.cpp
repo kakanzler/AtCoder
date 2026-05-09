@@ -35,7 +35,35 @@ using vs = vc<string>; using vvs = vv<string>;
 #define dame cout<<-1<<endl
 //----------------------------------------------
 
+template<class T> bool chmax (T &a, T b){
+    if (a < b) {
+        a = b;
+        return true;
+    } else {
+        return false;
+    }
+}
+
 void solve() {
+    ll n, k; cin >> n >> k;
+    vl a(n);
+    ll m = 0;
+    rep(i, n) {cin >> a[i]; chmax(m, a[i]); }
+
+    set<ll> s;
+    rep(i, n){
+        if (a[i] == m) s.insert(i);
+    }
+    ll b;
+    rep(i, k){
+        cin >> b; b--;
+        if (s.contains(b)){
+            YES;
+            return;
+        }
+    }
+
+    NO;
     return;
 }
 
