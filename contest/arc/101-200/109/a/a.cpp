@@ -14,7 +14,7 @@ template<typename T> using vv = vc<vc<T>>;
 //-------------1.型系---------------
 using ll = long long;
 using ull = unsigned long long;
-ll INF = 2e18;
+const int INF = 1e9;
 
 using mint = modint998244353;
 //using mint = modint1000000007;
@@ -34,8 +34,75 @@ using vs = vc<string>; using vvs = vv<string>;
 #define YN {cout<<"Yes"<<endl;}else{cout<<"No"<<endl;}// if(a==b)YN;
 #define dame cout<<-1<<endl
 //----------------------------------------------
+template<class T> using pq = priority_queue<T, vc<T>>;//大きい順
+template<class T> using pq_g = priority_queue<T, vc<T>, greater<T>>;//小さい順
+
+
+template<class T> bool chmin (T &a, T b){
+    if (a > b) {
+        a = b;
+        return true;
+    } else {
+        return false;
+    }
+}
+template<class T> bool chmax (T &a, T b){
+    if (a < b) {
+        a = b;
+        return true;
+    } else {
+        return false;
+    }
+}
+
+struct Edge{
+    int v;
+    int w;
+    Edge (int v, int w) : v(v), w(w) {};
+};
 
 void solve() {
+    int a, b, x, y; cin >> a >> b >> x >> y;
+
+    a--; b--;
+
+    vector<vector<Edge>> g(200);
+    for (int i = 0; i < 100; i++){
+        g[i].push_back(Edge(i+100, x));
+        g[i+100].push_back(Edge(i, x));
+    }
+    for (int i = 0; i < 99; i++){
+        g[i+100].push_back(Edge(i+1, x));
+        g[i+1].push_back(Edge(i+100, x));
+
+        g[i+1].push_back(Edge(i, y));
+        g[i].push_back(Edge(i+1, y));
+
+        g[i+101].push_back(Edge(i+100, y));
+        g[i+100].push_back(Edge(i+101, y));
+    }
+
+    pq_g<pair<int, int>> q;
+    q.emplace(0, a);
+    vector<int> dist(200, INF);
+    dist[a] = 0;
+
+    while(q.size()){
+        auto [w, v] = q.top(); q.pop();
+
+        if (dist[v] != w) continue;
+
+        for (Edge e : g[v]){
+            if (!chmin(dist[e.v], w+e.w)) continue;
+
+            q.emplace(e.w + w, e.v);
+        }
+    }
+
+    // // debug
+    // rep(i, 100) cout << dist[i] << " : " << dist[100+i] << endl;
+
+    cout << dist[100 + b] << endl;
     return;
 }
 
