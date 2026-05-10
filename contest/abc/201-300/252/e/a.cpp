@@ -13,20 +13,7 @@ template<typename T> using vv = vc<vc<T>>;
 
 //-------------1.型系---------------
 using ll = long long;
-using ull = unsigned long long;
 ll INF = 2e18;
-
-#include <boost/multiprecision/cpp_int.hpp>//インストール的なのをしてないとできないので注意
-namespace multip = boost::multiprecision;
-//using lll = multip::cpp_int;//無制限を使いたいときはこっちを使う
-using lll = multip::int128_t;
-
-using ld = long double;
-using bl = bool;
-using mint = modint998244353;
-//using mint = modint1000000007;
-//using mint = modint;//使うときはコメントアウトを外す
-//mint::set_mod(m);//使うときはコメントアウトを外す
 
 template<class T> using pq = priority_queue<T, vc<T>>;//大きい順
 template<class T> using pq_g = priority_queue<T, vc<T>, greater<T>>;//小さい順
@@ -35,22 +22,7 @@ template<class T> using pq_g = priority_queue<T, vc<T>, greater<T>>;//小さい�
 
 
 //-------------2.配列系--------------
-using vl = vc<ll>; using vvl = vv<ll>; using vvvl = vv<vl>; using vvvvl = vv<vvl>;
-using vs = vc<string>; using vvs = vv<string>;
-using vb = vc<bl>; using vvb = vv<bl>; using vvvb = vv<vb>;
-using vld = vc<ld>; using vvld = vv<ld>; using vvvld = vv<vld>;
-using P = pair<ll, ll>;
-using vmint = vc<mint>; using vvmint = vv<mint>; using vvvmint = vv<vmint>;
-
-//配列外参照対策のやつは一番上の行にあります
-
-#define rep(i,n) for(ll i = 0; i < (n); ++i)//↓でrepを使うので書いてます
-template<class T>istream& operator>>(istream& i, vc<T>& v) { rep(j, size(v))i >> v[j]; return i; }
-
-using ar2 = array<ll, 2>;
-
-//----------------------------------
-
+using vl = vc<ll>; using vvl = vv<ll>;
 
 
 //--------3.コード短縮化とか---------
@@ -85,13 +57,6 @@ template<class T> bool chmax (T &a, T b){
 #define em emplace
 #define pob pop_back
 
-
-#define YES cout<<"Yes"<<endl
-#define NO cout<<"No"<<endl
-#define YN {cout<<"Yes"<<endl;}else{cout<<"No"<<endl;}// if(a==b)YN;
-#define dame cout<<-1<<endl
-
-
 #define vc_unique(v) v.erase( unique(v.begin(), v.end()), v.end() );
 #define vc_rotate(v) rotate(v.begin(),v.begin()+1,v.end());
 
@@ -105,76 +70,49 @@ template<class T> bool chmax (T &a, T b){
 
 
 
-
-//---------4.グリッド系----------
-vl dx = { 1,0,-1,0 };//vl dx={1,1,0,-1,-1,-1,0,1};
-vl dy = { 0,1,0,-1 };//vl dy={0,1,1,1,0,-1,-1,-1};
-
-bool out_grid(ll i, ll j, ll h, ll w) {//trueならcontinue
-    return (!(0 <= i && i < h && 0 <= j && j < w));
-}
-
-#define vvl_kaiten(v) {ll n = size(v);vvl nx(n,vl(n));rep(i,n)rep(j,n)nx[j][n-i-1]=v[i][j];swap(nx,v);}//時計回りに90°回転
-//#define vvl_kaiten(v) {ll n = size(v);vvl nx(n,vl(n));rep(i,n)rep(j,n)nx[n-j-1][i]=v[i][j];swap(nx,v);}//反時計周りに90°回転
-
-#define vs_kaiten(v) {ll n = size(v);vs nx(n,string(n,'.'));rep(i,n)rep(j,n)nx[j][n-i-1]=v[i][j];swap(nx,v);}//文字列版 時計回りに90°回転
-//#define vs_kaiten(v) {ll n = size(v);vs nx(n,string(n,'.'));rep(i,n)rep(j,n)nx[n-j-1][i]=v[i][j];swap(nx,v);}//文字列版　反時計周りに90°回転
-
-
-#define vvl_tenti(v) {ll n = size(v);vvl nx(n,vl(n));rep(i,n)rep(j,n)nx[j][i]=v[i][j];swap(nx,v);}
-#define vs_tenti(v) {ll n = size(v); vs nx(n, string(n,'.')); rep(i, n)rep(j, n)nx[j][i] = v[i][j]; swap(nx, v);}
-
-//--------------------------------
-
-
-
-
-//-----------5.数学系--------------
-#define yu_qurid(x,y) ((x)*(x)+(y)*(y))//ユークリッド距離 sqrtはしてないなので注意
-#define mannhattan(x1,x2,y1,y2) (abs(x1-x2)+abs(y1-y2)) // マンハッタン距離 = |x1-x2|+|y1-y2|
-
-template<class T>T tousa_sum1(T l, T d, T r) {//初項,公差,末項 で総和を求める
-    T wide = (r - l) / d + 1;
-    return (l + r) * wide / 2;
-}
-template<class T>T tousa_sum2(T a, T d, T n) {//初項,交差,項数 で総和を求める
-    return (a * 2 + d * (n - 1)) * n / 2;
-}
-ll kousa_kousuu(ll l, ll r, ll d) {//初項,末項,交差 で等差数列の項数を求める
-    return (r - l) / d + 1;
-}
-mint touhi_sum(mint a, mint r, ll n) {//初項,公比,項数で等比数列の総和を求める
-    if (r == 1) {
-        return a * n;
-    }
-    mint bunsi = a * (r.pow(n) - mint(1));
-    mint bunbo = r - 1;
-    return bunsi / bunbo;
-}
-
-ll nc2(ll x) { return x * (x - 1) / 2; }
-ll nc3(ll x) { return x * (x - 1) * (x - 2) / 6; }
-
-//----------------------------------------------
-
-
-
-
-//-----------6.デバックや出力系------------------
-void print(ld x) { printf("%.20Lf\n", x); }
-
-void mukou_debug(vvl to, bool yukou) {//GRAPH × GRAPH用の無向グラフを出力する
-    ll n = size(to); ll cnt = 0;//辺の本数
-    vc<pair<ll, ll>>v; rep(i, n)for (ll t : to[i])  if (i < t || yukou)cnt++, v.eb(i + 1, t + 1);//有向グラフなら全部OK、違うなら無向なのでf<tのみ見る、using Pのやつを別のにしたいときのためにPを使わずにpair<ll,ll>にしてる
-    cout << n << ' ' << cnt << endl; for (auto [f, t] : v)cout << f << ' ' << t << endl;
-}
-
-#define vc_cout(v){ll n = size(v);rep(i,n)cout<<v[i]<<endl;}//一次元配列を出力する
-#define vv_cout(v){ll n = size(v);rep(i,n){rep(j,size(v[i])){cout<<v[i][j]<<' ';}cout<<endl;}}//二次元配列を出力する
-
-//----------------------------------------------
+struct Edge{
+    ll v;
+    ll w;
+    ll num;
+    Edge (ll v, ll w, ll num) : v(v), w(w), num(num) {};
+};
 
 void solve() {
+    ll n, m; cin >> n >> m;
+
+    vector<vector<Edge>> g(n);
+    rep(i, m){
+        ll u, v, c; cin >> u >> v >> c; u--; v--;
+        g[u].pb(Edge(v, c, i+1));
+        g[v].pb(Edge(u, c, i+1));
+    }
+
+    pq_g<pair<ll, ll>> q;
+    q.emplace(0, 0);
+    vc<pair<ll, ll>> seen(n, {-1, -1});
+    seen[0] = {0, 0};
+    vl total_cost(n, INF);
+    total_cost[0] = 0;
+
+    while(q.size()){
+        auto [cost, v] = q.top(); q.pop();
+
+        if (total_cost[v] != cost) continue;
+
+        for(Edge e: g[v]){
+            if (!chmin(total_cost[e.v], e.w + cost)) continue;
+            // if (seen[e.v].first == v && seen[e.v].second == e.num ) continue;
+
+            seen[e.v] = {v, e.num};
+            q.emplace(e.w + cost, e.v);
+
+        }
+    }
+    // rep(i, n) cout << "v: " << seen[i].first << " road : " << seen[i].second << endl;
+
+    rep(i, n-1) cout << seen[i+1].second << ' ';
+    cout << endl;
+
     return;
 }
 
