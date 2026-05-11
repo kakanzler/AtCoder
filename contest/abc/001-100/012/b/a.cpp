@@ -34,8 +34,14 @@ using vs = vc<string>; using vvs = vv<string>;
 #define YN {cout<<"Yes"<<endl;}else{cout<<"No"<<endl;}// if(a==b)YN;
 #define dame cout<<-1<<endl
 //----------------------------------------------
+#include <iomanip>
 
 void solve() {
+    ll n; cin >> n;
+
+    cout << setfill('0');
+    cout << setw(2) << n / 3600 << ':' << setw(2) << (n%3600) / 60 << ':' << setw(2) << n%60 << endl;
+
     return;
 }
 

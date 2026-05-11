@@ -175,6 +175,11 @@ void mukou_debug(vvl to, bool yukou) {//GRAPH × GRAPH用の無向グラフを�
 //----------------------------------------------
 
 void solve() {
+    ll n; cin >> n; n = 2025 - n;
+
+    for (ll i = 1; i < 10; i++){
+        if (n%i == 0 && i < 10 && (n/i) < 10) cout << i << " x " << n/i << endl;
+    }
     return;
 }
 
