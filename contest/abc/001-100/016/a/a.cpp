@@ -31,11 +31,14 @@ using vs = vc<string>; using vvs = vv<string>;
 
 #define YES cout<<"Yes"<<endl
 #define NO cout<<"No"<<endl
-#define YN {cout<<"Yes"<<endl;}else{cout<<"No"<<endl;}// if(a==b)YN;
+#define YN {cout<<"YES"<<endl;}else{cout<<"NO"<<endl;}// if(a==b)YN;
 #define dame cout<<-1<<endl
 //----------------------------------------------
 
 void solve() {
+    ll m,d; cin >> m >> d;
+
+    if (m%d == 0) YN;
     return;
 }
 
