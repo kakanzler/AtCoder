@@ -9,35 +9,26 @@ using namespace atcoder;
 
 
 //-------------1.型系---------------
-using ll = long long;
-using mint = modint1000000007;
+using ll = long long;;
 
+#define rep(i,n) for(ll i = 0; i < (n); ++i)
 
 void solve() {
-    ll n; cin >> n;
+    ll n, k; cin >> n >> k;
 
-    mint ans = 1;
+    vector<ll> a(n);
+    rep(i, n) cin >> a[i];
 
-    map<ll, ll> prime_cnt;
-    for(ll i = 1; i <= n ; ++i){
-        ll x = i;
-        for(ll divisor = 2; divisor*divisor <= x ; ++divisor){
+    ll acc = 0;
+    rep(i, k) acc += a[i];
 
-            while (x % divisor == 0){
-                prime_cnt[divisor]++;
-                x /= divisor;
-            }
-        }
-        if (x > 1) prime_cnt[x]++;
+    ll ans = acc;
+    rep(i, n-k) {
+        acc -= a[i];
+        acc += a[i+k];
+        ans += acc;
     }
-
-    for (auto [k, v] : prime_cnt){
-        // debug
-        // cout << "k: " << k << " v: " << v << endl;
-        ans *= v + 1 ;
-    }
-
-    cout << ans.val() << endl;
+    cout << ans << endl;
     return;
 }
 

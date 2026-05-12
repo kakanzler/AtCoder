@@ -35,8 +35,8 @@ using vs = vc<string>; using vvs = vv<string>;
 //----------------------------------------------
 
 void solve() {
-    ll a, b, c, d; cin >> a >> b >> c >> d;
-    cout << (a*b > c*d? a* b : c*d ) << endl;
+    ll a, b, c; cin >> a >> b >> c;
+    cout << c / min(a, b) << endl;
     return;
 }
 

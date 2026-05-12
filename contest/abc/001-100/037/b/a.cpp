@@ -42,16 +42,16 @@ template<class T> bool chmax(T& a, T b){
 //----------------------------------------------
 
 void solve() {
-    ll n; string s; cin >> n >> s;
+    ll n, q; cin >> n >> q;
 
-    ll mx = 0, x=0;
-    for (char c : s){
-        if (c == 'D') x--;
-        else x++;
+    vl a(n, 0);
 
-        chmax(mx, x);
+    rep(i, q){
+        ll l, r, t; cin >> l >> r >> t;
+        l--; r--;
+        for(ll j = l; j <= r; j++) a[j] = t;
     }
-    cout << mx << endl;
+    rep(i, n) cout << a[i] << endl;
     return;
 }
 

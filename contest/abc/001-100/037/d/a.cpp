@@ -41,19 +41,52 @@ template<class T> bool chmax (T &a, T b){
     }
 }
 
+// using mint = modint998244353;
+using mint = modint1000000007;
+
+vl dx = { 1,0,-1,0 };//vl dx={1,1,0,-1,-1,-1,0,1};
+vl dy = { 0,1,0,-1 };//vl dy={0,1,1,1,0,-1,-1,-1};
+
+bool out_grid(ll i, ll j, ll h, ll w) {//trueならcontinue
+    return (!(0 <= i && i < h && 0 <= j && j < w));
+}
 
 void solve() {
-    ll n, a, b; cin >> n >> a >> b;
-    vl x(n);
-    rep(i, n) cin >> x[i];
+    ll h, w; cin >> h >> w;
 
-    ll fatigue = 0;
+    vector<tuple<ll, ll, ll>> gg;
+    vvl g(h, vl(w, 0));
+    rep(i, h) rep(j, w) {
+        ll a; cin >> a;
+        g[i][j] = a;
+        gg.push_back({a, i, j});
+    }
+    sort(gg.begin(), gg.end());
 
-    rep(i, n-1){
-        fatigue += min( (x[i+1] - x[i]) * a, b);
+    mint ans = 0;
+
+    vc<vc<mint>> dp(h, vc<mint>(w, 1));
+    for(auto [_, i, j] : gg){
+        rep(k, 4){
+            ll ny = i + dy[k];
+            ll nx = j + dx[k];
+            if (out_grid(ny, nx, h, w)) continue;
+
+            if (g[ny][nx] > g[i][j]){
+                dp[ny][nx] += dp[i][j];
+            }
+        }
     }
 
-    cout << fatigue << endl;
+    rep(i, h) {
+        rep(j, w) {
+            // cout << dp[i][j] << ' ';
+            ans += dp[i][j];
+        }
+        // cout << endl;
+    }
+
+    cout << ans.val() << endl;
     return;
 }
 
