@@ -14,19 +14,17 @@ using ll = long long;;
 #define rep(i,n) for(ll i = 0; i < (n); ++i)
 
 void solve() {
-    ll n, k; cin >> n >> k;
+    ll n; cin >> n;
 
-    vector<ll> a(n);
-    rep(i, n) cin >> a[i];
+    map<ll, ll> ma;
+    rep(i, n) {
+        ll a; cin >> a;
+        ma[a]++;
+    }
 
-    ll acc = 0;
-    rep(i, k) acc += a[i];
-
-    ll ans = acc;
-    rep(i, n-k) {
-        acc -= a[i];
-        acc += a[i+k];
-        ans += acc;
+    ll ans = 0;
+    for (auto [key, value] : ma){
+        ans += value % 2;
     }
     cout << ans << endl;
     return;

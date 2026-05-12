@@ -35,8 +35,10 @@ using vs = vc<string>; using vvs = vv<string>;
 //----------------------------------------------
 
 void solve() {
-    ll a, b, c; cin >> a >> b >> c;
-    cout << c / min(a, b) << endl;
+    string s; cin >> s;
+    if (s[0] == '9' || s[1] == '9') YES;
+    else NO;
+
     return;
 }
 

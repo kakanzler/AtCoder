@@ -52,41 +52,40 @@ bool out_grid(ll i, ll j, ll h, ll w) {//trueならcontinue
 }
 
 void solve() {
-    ll h, w; cin >> h >> w;
+    ll n, m, r; cin >> n >> m >> r;
 
-    vector<tuple<ll, ll, ll>> gg;
-    vvl g(h, vl(w, 0));
-    rep(i, h) rep(j, w) {
-        ll a; cin >> a;
-        g[i][j] = a;
-        gg.push_back({a, i, j});
+    vl vr(r);
+    rep(i, r) {cin >> vr[i]; vr[i]--;}
+
+    vvl g(n, vl(n, 2e16));
+    rep(i, n) g[i][i] = 0;
+    rep(i, m) {
+        ll a, b, c; cin >> a >> b >> c;
+        a--; b--;
+        g[a][b] = c;
+        g[b][a] = c;
     }
-    sort(gg.begin(), gg.end());
 
-    mint ans = 0;
+    rep(k, n)  rep(i, n)  rep(j, n) chmin(g[i][j], g[i][k] + g[k][j]);
 
-    vc<vc<mint>> dp(h, vc<mint>(w, 1));
-    for(auto [_, i, j] : gg){
-        rep(k, 4){
-            ll ny = i + dy[k];
-            ll nx = j + dx[k];
-            if (out_grid(ny, nx, h, w)) continue;
+    // // debug
+    // rep(i, n) {
+    //     rep(j, n) cout << g[i][j] << ' ';
+    //     cout << endl;
+    // }
+    sort(vr.begin(), vr.end());
+    ll ans = 2e16;
 
-            if (g[ny][nx] > g[i][j]){
-                dp[ny][nx] += dp[i][j];
-            }
+    do{
+        ll sum = 0;
+        rep(i, r-1){
+            sum += g[vr[i]][vr[i+1]];
         }
-    }
+        chmin(ans, sum);
 
-    rep(i, h) {
-        rep(j, w) {
-            // cout << dp[i][j] << ' ';
-            ans += dp[i][j];
-        }
-        // cout << endl;
-    }
+    }while(next_permutation(vr.begin(), vr.end()));
 
-    cout << ans.val() << endl;
+    cout << ans << endl;
     return;
 }
 
