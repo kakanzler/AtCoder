@@ -36,9 +36,12 @@ using vs = vc<string>; using vvs = vv<string>;
 
 void solve() {
     string s; cin >> s;
-    if (s[0] == '9' || s[1] == '9') YES;
-    else NO;
 
+    rep(i, 2) if (s[i] == s[i+1] && s[i+1] == s[i+2]) {
+        YES;
+        return;
+    }
+    NO;
     return;
 }
 

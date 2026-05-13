@@ -44,10 +44,20 @@ template<class T> bool chmax(T& a, T b){
 void solve() {
     ll n; cin >> n;
 
+    ll a = 2, b = 1;
+    if (n == 0) {
+        cout << 2 << endl;
+        return;
+    } else if (n == 1){
+        cout << 1 << endl;
+        return;
+    }
+
     ll ans = 0;
-    rep(i, n) {
-        ll l, r; cin >> l >> r;
-        ans += (r-l+1);
+    for(ll i = 2 ; i <= n ; i++) {
+        ans = a + b;
+        a = b;
+        b = ans;
     }
     cout << ans << endl;
     return;

@@ -52,38 +52,29 @@ bool out_grid(ll i, ll j, ll h, ll w) {//trueならcontinue
 }
 
 void solve() {
-    ll n, m, r; cin >> n >> m >> r;
+    ll h, w; cin >> h >> w;
 
-    vl vr(r);
-    rep(i, r) {cin >> vr[i]; vr[i]--;}
+    vvl c(10, vl(10));
+    rep(i, 10) rep(j, 10) cin >> c[i][j];
 
-    vvl g(n, vl(n, 2e16));
-    rep(i, n) g[i][i] = 0;
-    rep(i, m) {
-        ll a, b, c; cin >> a >> b >> c;
-        a--; b--;
-        g[a][b] = c;
-        g[b][a] = c;
-    }
+    vvl a(h, vl(w, 0));
+    rep(i, h) rep(j, w) cin >> a[i][j];
 
-    rep(k, n)  rep(i, n)  rep(j, n) chmin(g[i][j], g[i][k] + g[k][j]);
+
+    rep(k, 10)  rep(i, 10)  rep(j, 10) chmin(c[i][j], c[i][k] + c[k][j]);
 
     // // debug
     // rep(i, n) {
     //     rep(j, n) cout << g[i][j] << ' ';
     //     cout << endl;
     // }
-    sort(vr.begin(), vr.end());
-    ll ans = 2e16;
 
-    do{
-        ll sum = 0;
-        rep(i, r-1){
-            sum += g[vr[i]][vr[i+1]];
-        }
-        chmin(ans, sum);
+    ll ans = 0;
+    rep(i, h) rep(j, w){
+        if (a[i][j] == -1) continue;
 
-    }while(next_permutation(vr.begin(), vr.end()));
+        ans += c[a[i][j]][1];
+    }
 
     cout << ans << endl;
     return;

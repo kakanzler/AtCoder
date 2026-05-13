@@ -14,19 +14,24 @@ using ll = long long;;
 #define rep(i,n) for(ll i = 0; i < (n); ++i)
 
 void solve() {
-    ll n; cin >> n;
+    string s; cin >> s;
+    vector<ll> v(4);
+    ll a = s[0] - '0';
+    ll b = s[1] - '0';
+    ll c = s[2] - '0';
+    ll d = s[3] - '0';
 
-    map<ll, ll> ma;
-    rep(i, n) {
-        ll a; cin >> a;
-        ma[a]++;
+    ll count = 0;
+    vector<vector<char>> op(8);
+    while(count < 8){
+        ll ans = a;
+        ans = ((count>>2) %2 == 0 ? ans-b : ans+b);
+        ans = ((count>>1) %2 == 0 ? ans-c : ans+c);
+        ans = (count%2 == 0 ? ans-d : ans+d);
+        if (ans == 7) break;
+        count++;
     }
-
-    ll ans = 0;
-    for (auto [key, value] : ma){
-        ans += value % 2;
-    }
-    cout << ans << endl;
+    cout << s[0] << ((count>>2) %2 == 0 ? '-' : '+') << s[1] << ((count>>1) %2 == 0 ? '-' : '+')<< s[2] <<((count) %2 == 0 ? '-' : '+')<< s[3] << "=7" << endl;
     return;
 }
 
