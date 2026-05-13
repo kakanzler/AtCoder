@@ -36,7 +36,17 @@ using vs = vc<string>; using vvs = vv<string>;
 //----------------------------------------------
 
 void solve() {
-    return;
+    ll v, a, b, c; cin >> v >> a >> b >> c;
+
+    v %= (a+b+c);
+
+    v -= a;
+    if (v < 0) { cout << "F" << endl; return;}
+    v -= b;
+    if (v < 0) { cout << "M" << endl; return;}
+    v -= c;
+    if (v < 0) { cout << "T" << endl; return;}
+
 }
 
 int main() {
