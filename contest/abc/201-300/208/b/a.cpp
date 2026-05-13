@@ -28,6 +28,7 @@ using vs = vc<string>; using vvs = vv<string>;
 
 //--------3.コード短縮化とか---------
 #define rep(i,n) for(ll i = 0; i < (n); ++i)
+#define drep(i,n) for(ll i = (n)-1; i >= 0; --i)
 
 #define YES cout<<"Yes"<<endl
 #define NO cout<<"No"<<endl
@@ -36,6 +37,23 @@ using vs = vc<string>; using vvs = vv<string>;
 //----------------------------------------------
 
 void solve() {
+    ll p; cin >> p;
+
+    ll a = 1;
+    ll count = 1;
+    while(a < p){
+        count++;
+        a *= count;
+        if (a > p) break;
+    }
+
+    ll ans = 0;
+    for(ll i = count; i >= 1 ; i--){
+        ans += (p / a);
+        p -= (p / a) * a;
+        a /= i;
+    }
+    cout << ans << endl;
     return;
 }
 
