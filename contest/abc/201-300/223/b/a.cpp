@@ -25,6 +25,8 @@ using mint = modint998244353;
 using vl = vc<ll>; using vvl = vv<ll>; using vvvl = vv<vl>; using vvvvl = vv<vvl>;
 using vs = vc<string>; using vvs = vv<string>;
 
+template<class T> using pq = priority_queue<T, vc<T>>;//大きい順
+template<class T> using pq_g = priority_queue<T, vc<T>, greater<T>>;//小さい順
 
 //--------3.コード短縮化とか---------
 #define rep(i,n) for(ll i = 0; i < (n); ++i)
@@ -36,6 +38,19 @@ using vs = vc<string>; using vvs = vv<string>;
 //----------------------------------------------
 
 void solve() {
+    string s; cin >> s;
+    ll n = (ll)s.size();
+
+    pq<string> q;
+    pq_g<string> qg;
+    string t;
+    rep(i, n){
+        t = s.substr(i, n-i) + s.substr(0, i);
+        q.push(t);
+        qg.push(t);
+    }
+    cout << qg.top() << endl;
+    cout << q.top() << endl;
     return;
 }
 
