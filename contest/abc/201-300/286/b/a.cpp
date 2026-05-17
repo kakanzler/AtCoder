@@ -36,6 +36,23 @@ using vs = vc<string>; using vvs = vv<string>;
 //----------------------------------------------
 
 void solve() {
+    ll n; cin >> n;
+    string s; cin >> s;
+
+    string t = "";
+    for (char c : s){
+        if (t == "") {
+            t.push_back(c);
+            continue;
+        }
+        if (t.back() == 'n' && c == 'a'){
+            t.push_back('y');
+        }
+
+        t.push_back(c);
+    }
+
+    cout << t << endl;
     return;
 }
 

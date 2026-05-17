@@ -36,6 +36,24 @@ using vs = vc<string>; using vvs = vv<string>;
 //----------------------------------------------
 
 void solve() {
+    ll n, p , q, r, s; cin >> n >> p >> q >> r >> s;
+    p--; q--; r--; s--;
+
+    vl a(n);
+    rep(i, n) cin >> a[i];
+
+    rep(i, n){
+        ll out = 0;
+
+        if (i < p) out = a[i];
+        else if (p <= i && i <= q) out = a[i + r - p];
+        else if (q < i && i < r) out = a[i];
+        else if (r <= i && i <= s) out = a[i - r + p];
+        else out = a[i];
+
+        cout << out << ' ';
+    }
+    cout << endl;
     return;
 }
 
