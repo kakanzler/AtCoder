@@ -36,6 +36,20 @@ using vs = vc<string>; using vvs = vv<string>;
 //----------------------------------------------
 
 void solve() {
+    ll n; cin >> n;
+
+    ll total_n = 0;
+    ll total_bug = 0;
+
+    rep(i, n){
+        ll a; cin >> a;
+        if (a == 0) continue;
+        total_n++;
+        total_bug += a;
+    }
+
+    if (total_bug % total_n) cout << (total_bug / total_n) + 1 << endl;
+    else cout << total_bug / total_n << endl;
     return;
 }
 

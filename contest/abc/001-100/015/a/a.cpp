@@ -36,6 +36,9 @@ using vs = vc<string>; using vvs = vv<string>;
 //----------------------------------------------
 
 void solve() {
+    string s, t; cin >> s >> t;
+    if (s.size() > t.size()) cout << s << endl;
+    else cout << t << endl;
     return;
 }
 
