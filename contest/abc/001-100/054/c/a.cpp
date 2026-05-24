@@ -174,7 +174,85 @@ void mukou_debug(vvl to, bool yukou) {//GRAPH × GRAPH用の無向グラフを�
 
 //----------------------------------------------
 
+class UnionFind {
+
+    vector<int> parent, siz;
+
+    UnionFind(int n) : parent(n), siz(n, 1) {
+        iota(parent.begin(), parent.end(), 0);
+    }
+
+    int root(int x) {
+        if (parent[x] == x) return x;
+        return parent[x] = root(parent[x]);
+    }
+
+    bool same(int x, int y) {
+        return root(x) == root(y);
+    }
+
+    bool unite(int x, int y) {
+        x = root(x);
+        y = root(y);
+
+        if (x == y) return false;
+
+        if (siz[x] < siz[y] ) swap(x, y);
+
+        parent[y] = x;
+        siz[x] += siz[y];
+
+        return true;
+    }
+
+    int size(int x) {
+        return siz[root(x)];
+    }
+
+};
+
 void solve() {
+    ll n, m; cin >> n >> m;
+    vvl g(n);
+    rep(i, m){
+        ll a, b; cin >> a >> b;
+        a--; b--;
+        g[a].pb(b);
+        g[b].pb(a);
+    }
+
+    ll ans = 0;
+
+    queue<pair<ll, vb>> q;
+    vb seen(n, false);
+    seen[0] = true;
+    q.emplace(0, seen);
+
+    while(q.size()){
+        auto [v, see] = q.front(); q.pop();
+
+        bool all_seen = true;
+        rep(i, n) all_seen &= see[i];
+        if (all_seen) {
+            ans++;
+            continue;
+        }
+
+        for (ll nv : g[v]) {
+            if (see[nv]) continue;
+
+            auto nsee = see;
+            nsee[nv] = true;
+            q.emplace(nv, nsee);
+
+            // // debug
+            // rep(i, n) cout << nsee[i] << ' ';
+            // cout << endl;
+        }
+    }
+
+    cout << ans << endl;
+
     return;
 }
 

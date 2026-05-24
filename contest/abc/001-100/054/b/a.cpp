@@ -36,6 +36,27 @@ using vs = vc<string>; using vvs = vv<string>;
 //----------------------------------------------
 
 void solve() {
+    ll n, m; cin >> n >> m;
+    vs a(n), b(m);
+    rep(i, n) cin >> a[i];
+    rep(i, m) cin >> b[i];
+
+    bool found = true;
+    rep(i, n - m + 1) rep(j, n - m + 1){
+        found = true;
+        rep(ii, m) rep(jj, m){
+            if (a[i+ii][j+jj] != b[ii][jj]) {
+                found = false;
+                break;
+            }
+        }
+        if (found) {
+            YES;
+            return;
+        }
+    }
+
+    NO;
     return;
 }
 
