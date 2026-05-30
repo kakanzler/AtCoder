@@ -36,6 +36,15 @@ using vs = vc<string>; using vvs = vv<string>;
 //----------------------------------------------
 
 void solve() {
+    ll n, m; cin >> n >> m;
+    int count = 0;
+
+    while(m > 0){
+        m = n % m;
+        count++;
+    }
+
+    cout << count << endl;
     return;
 }
 

@@ -36,11 +36,22 @@ using vs = vc<string>; using vvs = vv<string>;
 //----------------------------------------------
 
 void solve() {
+    ll x, y, r, xx, yy, rr; cin >> x >> y >> r >> xx >> yy >> rr;
+
+    ll distance = (x - xx) * (x - xx) + (y - yy) * (y - yy);
+    ll r_sum2 = (r+rr)*(r+rr);
+    ll r_diff2 = (r-rr)*(r-rr);
+    if (r_diff2 <= distance && distance <= r_sum2) YN;
+
     return;
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    solve();
+
+    int t; cin >> t;
+    while(t--){
+        solve();
+    }
 }

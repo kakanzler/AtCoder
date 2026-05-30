@@ -107,8 +107,8 @@ template<class T> bool chmax (T &a, T b){
 
 
 //---------4.グリッド系----------
-vl dx = { 1,0,-1,0 };//vl dx={1,1,0,-1,-1,-1,0,1};
-vl dy = { 0,1,0,-1 };//vl dy={0,1,1,1,0,-1,-1,-1};
+vl dx={1,1,0,-1,-1,-1,0,1};
+vl dy={0,1,1,1,0,-1,-1,-1};
 
 bool out_grid(ll i, ll j, ll h, ll w) {//trueならcontinue
     return (!(0 <= i && i < h && 0 <= j && j < w));
@@ -175,6 +175,65 @@ void mukou_debug(vvl to, bool yukou) {//GRAPH × GRAPH用の無向グラフを�
 //----------------------------------------------
 
 void solve() {
+    ll h, w; cin >> h >> w;
+    vs s(h), t(h);
+    rep(i, h) {
+        cin >> s[i];
+    }
+    vvl seen(h, vl(w, -1));
+
+    queue<tuple<ll, ll, ll>> q;
+
+    rep(y, h) rep(x, w) {
+        if (s[y][x] != '.') continue;
+
+        bool ok = false;
+        rep(k, 8) {
+            ll ny = y + dy[k];
+            ll nx = x + dx[k];
+            if (out_grid(ny, nx, h, w)) continue;
+            if (s[ny][nx] == '#') ok = true;
+        }
+
+        if (ok) {
+            seen[y][x] = 0;
+            q.emplace(y, x, 0);
+        }
+    }
+
+    while(q.size()){
+        auto [y, x, loop] = q.front(); q.pop();
+
+        rep(i, 8){
+            ll ny = y + dy[i];
+            ll nx = x + dx[i];
+
+            if (out_grid(ny, nx, h, w)) continue;
+            if (seen[ny][nx] != -1) continue;
+
+            seen[ny][nx] = loop+1;
+            q.emplace(ny, nx, loop+1);
+        }
+    }
+
+    // // debug
+    // rep(i, h) {
+    //     rep(j, w){
+    //         cout << seen[i][j];
+    //     }
+    //     cout << endl;
+    // }
+    rep(i, h) {
+        rep(j, w){
+            if (seen[i][j] != -1 && seen[i][j] % 2 == 1) {
+                cout << '#';
+            } else {
+                cout << '.';
+            }
+        }
+        cout << endl;
+    }
+
     return;
 }
 
