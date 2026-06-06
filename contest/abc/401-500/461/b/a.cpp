@@ -36,6 +36,18 @@ using vs = vc<string>; using vvs = vv<string>;
 //----------------------------------------------
 
 void solve() {
+    ll n; cin >> n;
+    vl a(n), b(n);
+    rep(i, n) cin >> a[i];
+    rep(i, n) cin >> b[i];
+
+    rep(i, n){
+        if (b[a[i]-1] != i+1){
+            NO;
+            return;
+        }
+    }
+    YES;
     return;
 }
 

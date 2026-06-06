@@ -36,6 +36,8 @@ using vs = vc<string>; using vvs = vv<string>;
 //----------------------------------------------
 
 void solve() {
+    ll a, d; cin >> a >> d;
+    if (d >= a) YN;
     return;
 }
 
