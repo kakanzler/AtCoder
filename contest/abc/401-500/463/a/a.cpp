@@ -36,6 +36,8 @@ using vs = vc<string>; using vvs = vv<string>;
 //----------------------------------------------
 
 void solve() {
+    ll a,b; cin >> a >> b;
+    if (a%16 == 0 && b % 9 == 0 && a / 16 * 9 == b) YN;
     return;
 }
 

@@ -175,6 +175,27 @@ void mukou_debug(vvl to, bool yukou) {//GRAPH × GRAPH用の無向グラフを�
 //----------------------------------------------
 
 void solve() {
+    ll n; cin >> n;
+    vl h(n), l(n);
+
+    ll ml = 0;
+    rep(i, n) {
+        cin >> h[i] >> l[i];
+        chmax(ml, l[i]);
+    }
+
+    vl ss(n+1, 0);
+    drep(i, n) {
+        ss[i] = max(ss[i+1], h[i]);
+    }
+
+    ll q; cin >> q;
+    rep(i, q){
+        ll t; cin >> t;
+
+        ll idx = upper_bound(nall(l), t) - l.begin();
+        cout << ss[idx] << endl;
+    }
     return;
 }
 

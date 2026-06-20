@@ -36,6 +36,17 @@ using vs = vc<string>; using vvs = vv<string>;
 //----------------------------------------------
 
 void solve() {
+    ll n; char x; cin >> n >> x;
+
+    vl chair(5, 0);
+    rep(i, n){
+        string ox; cin >> ox;
+        rep(j, 5){
+            if (ox[j] == 'o') chair[j]++;
+        }
+    }
+
+    if (chair[x-'A']) YN;
     return;
 }
 

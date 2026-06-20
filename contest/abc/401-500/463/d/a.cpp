@@ -175,7 +175,29 @@ void mukou_debug(vvl to, bool yukou) {//GRAPH × GRAPH用の無向グラフを�
 //----------------------------------------------
 
 void solve() {
-    return;
+    ll n, k; cin >> n >> k;
+    vc<pair<ll,ll>> nuno(n);
+    rep(i, n) {
+        ll L, R; cin >> L >> R; 
+        nuno[i] = {R, L};
+    }
+    sort(nall(nuno)); 
+
+    auto feasible = [&](ll D) -> bool {
+        ll cnt = 0, end = -INF;
+        for (auto [R, L] : nuno) {
+            if (L >= end + D) { cnt++; end = R; }
+        }
+        return cnt >= k;
+    };
+
+    if (!feasible(1)) { dame; return; }
+    ll ng = 1e9 + 1, ok = 1;
+    while (ng - ok > 1) {
+        ll mid = (ok + ng) / 2;
+        (feasible(mid) ? ok : ng) = mid;
+    }
+    cout << ok << endl;
 }
 
 int main() {
