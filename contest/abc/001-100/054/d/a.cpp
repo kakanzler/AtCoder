@@ -57,6 +57,7 @@ using ar2 = array<ll, 2>;
 #define rep(i,n) for(ll i = 0; i < (n); ++i)
 #define rrep(i,n) for(ll i = 1; i <= (n); ++i)
 #define drep(i,n) for(ll i = (n)-1; i >= 0; --i)
+#define drrep(i,n) for(ll i = n; i > 0; --i)
 #define nfor(i,s,n) for(ll i=s;i<n;i++)//i=s,s+1...n-1 ノーマルfor
 #define dfor(i,s,n) for(ll i = (s)-1; i>=n;i--)//s-1スタートでnまで落ちる
 
@@ -175,6 +176,49 @@ void mukou_debug(vvl to, bool yukou) {//GRAPH × GRAPH用の無向グラフを�
 //----------------------------------------------
 
 void solve() {
+    ll n, ma, mb; cin >> n >> ma >> mb;
+
+    vl a(n), b(n), c(n);
+    ll ta = 0, tb = 0;
+    rep(i, n) {
+        cin >> a[i] >> b[i] >> c[i];
+        ta+= a[i]; tb += b[i];
+    }
+
+    vector dp(ta+1, vl(tb+1, INF));
+
+    // init
+    dp[0][0] = 0;
+    // rep(i, ta) dp[i][0] = 0;
+    // rep(j, tb) dp[0][j] = 0;
+    // rep(i, n) {
+    //     dp[a[i]][b[i]] = c[i];
+    // }
+
+    rep(k, n) for(ll i = ta; i >= a[k]; i--) for(ll j = tb; j >= b[k]; j--){
+        if ( dp[i - a[k]][j - b[k]]  == INF) continue;
+        chmin(dp[i][j], dp[i - a[k]][j - b[k]] + c[k]);
+    }
+
+    // // debug
+    // rrep(i, ta) {
+    //     rrep(j, tb) {
+    //         if (dp[i][j] == INF) cout << "*" << ' ';
+    //         else cout << dp[i][j] << ' ';
+    //     }
+    //     cout << endl;
+    // }
+
+    // ans
+    ll ans = INF;
+    ll iter = 1;
+    while(ma*iter <= ta && mb*iter <= tb){
+        chmin(ans, dp[ma*iter][mb*iter]);
+        iter++;
+    }
+
+    if (ans == INF) ans = -1;
+    cout << ans << endl;
     return;
 }
 
